@@ -29,7 +29,7 @@ export default function RankList({}: Props) {
   const some_data = data.slice(0, 10)
   return (
     <div>
-      {data.map((item) => {
+      {some_data.map((item) => {
         return (
           <RepoCard repoName={item.repo_name} key={item.repo_name}></RepoCard>
         )

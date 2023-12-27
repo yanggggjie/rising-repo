@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@vercel/kv": "^1.0.1",
+    "cookies-next": "^4.1.0",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
     "next": "14.0.4",
+    "next-usequerystate": "^1.13.2",
     "ofetch": "^1.3.3",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.1",

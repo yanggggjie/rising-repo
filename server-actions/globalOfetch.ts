@@ -16,6 +16,7 @@ const globalOfetch = ofetch.create({
       ...options.headers,
       'Content-Type': 'application/json',
       Accept: 'application/vnd.github.v3+json',
+      'X-GitHub-Api-Version': '2022-11-28',
       Authorization: `Bearer ${access_token}`,
     }
   },

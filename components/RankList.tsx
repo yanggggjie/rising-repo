@@ -1,37 +1,34 @@
-import _ from 'lodash'
-import { clsx } from 'clsx'
-import useSWR from 'swr'
 import getRankList, { IDuring } from '@/server-actions/getRankList'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
+import getARepo from '@/server-actions/getARepo'
 import RepoCard from '@/components/RepoCard'
+import { clsx } from 'clsx'
+
 interface Props {}
 
-export default function RankList({}: Props) {
+export default async function RankList({}: Props) {
   const during: IDuring = {
     start: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
     end: dayjs().format('YYYY-MM-DD'),
   }
-  const { data, isLoading, error } = useSWR(
-    {
-      url: 'getRankList',
-      during,
-    },
-    async ({ during }) => {
-      return await getRankList({ during })
-    },
-    {
-      revalidateOnFocus: false,
-    },
+  const rankList = await getRankList({ during })
+  const repoNameList = rankList.map((item) => {
+    return item.repo_name
+  })
+  const repoList = await Promise.all(
+    repoNameList.map(async (repoName) => {
+      return await getARepo({ repoName })
+    }),
   )
-  if (isLoading) return <div>loading </div>
-  if (error) return <div>error</div>
-  if (!data) return <div>no data</div>
-  const some_data = data.slice(0, 10)
   return (
-    <div>
-      {some_data.map((item) => {
+    <div className={clsx('flex flex-col  gap-10')}>
+      {repoList.map((item, index) => {
         return (
-          <RepoCard repoName={item.repo_name} key={item.repo_name}></RepoCard>
+          <RepoCard
+            yesterdayStar={rankList[index].stars}
+            key={item.url}
+            repo={item}
+          ></RepoCard>
         )
       })}
     </div>

@@ -2,16 +2,19 @@
 
 import { kv } from '@vercel/kv'
 import { ofetch } from 'ofetch'
+import { unstable_cache } from 'next/cache'
+import { memoize } from 'nextjs-better-unstable-cache'
 
 export interface IDuring {
   start: string
   end: string
 }
 
-export default async function getRankList({ during }: { during: IDuring }) {
-  const data = await ofetch('https://play.clickhouse.com/?user=play', {
-    method: 'POST',
-    body: `
+export default memoize(
+  async function getRankList({ during }: { during: IDuring }) {
+    const data = await ofetch('https://play.clickhouse.com/?user=play', {
+      method: 'POST',
+      body: `
       SELECT
         repo_name,
         count() AS stars
@@ -23,9 +26,15 @@ export default async function getRankList({ during }: { during: IDuring }) {
       GROUP BY
         repo_name
       ORDER BY stars DESC
-        LIMIT 50
+        LIMIT 500
         FORMAT JSON
     `,
-  })
-  return data.data as { repo_name: string; stars: number }[]
-}
+    })
+    return data.data as { repo_name: string; stars: number }[]
+  },
+  {
+    persist: true,
+    duration: 24 * 3600,
+    log: ['datacache'],
+  },
+)

@@ -13,12 +13,21 @@ import { GithubIcon, HomeIcon, Star, StarIcon } from 'lucide-react'
 import Link from 'next/link'
 import { IRepo } from '@/server-actions/getARepo'
 import { Badge } from './ui/badge'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 interface Props {
   yesterdayStar: number
   repo: IRepo
 }
 
-export default function RepoCard({ yesterdayStar, repo }: Props) {
+export default function RepoTable({ yesterdayStar, repo }: Props) {
   return (
     <div>
       <Card className={clsx('w-[800px]')}>

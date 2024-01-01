@@ -2,7 +2,11 @@
 import { globalOfetch } from '@/server-actions/globalOfetch'
 
 export default async function getARepo({ repoName }: { repoName: string }) {
-  return await globalOfetch<IRepo>(`/repos/` + repoName, {})
+  try {
+    return await globalOfetch<IRepo>(`/repos/` + repoName, {})
+  } catch (e) {
+    return null
+  }
 }
 
 export interface IRepo {

@@ -1,8 +1,6 @@
 'use server'
 
-import { kv } from '@vercel/kv'
 import { ofetch } from 'ofetch'
-import { unstable_cache } from 'next/cache'
 import { memoize } from 'nextjs-better-unstable-cache'
 
 export interface IDuring {
@@ -26,7 +24,7 @@ export default memoize(
       GROUP BY
         repo_name
       ORDER BY stars DESC
-        LIMIT 500
+        LIMIT 10
         FORMAT JSON
     `,
     })

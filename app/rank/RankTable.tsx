@@ -27,6 +27,7 @@ import {
 import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Link from 'next/link'
 
 type IRepoTable = IRepo & {
   addedStars: number
@@ -54,17 +55,22 @@ export default function RankTable({ data }: Props) {
     {
       id: 'name',
       accessorKey: 'name',
-      header: 'Name',
+      header: () => {
+        return <p className={clsx('text-center')}>Name</p>
+      },
       cell: (props) => {
         const name = props.row.original.name
         const owner = props.row.original.owner
+        const htmlUrl = props.row.original.html_url
         return (
-          <div>
+          <div className={clsx(clsx('flex flex-col items-center w-24'))}>
             <Avatar>
               <AvatarImage src={owner.avatar_url}></AvatarImage>
               <AvatarFallback>{owner.login}</AvatarFallback>
             </Avatar>
-            <p>{name}</p>
+            <Link href={htmlUrl} className={clsx('text-blue-500')}>
+              {name}
+            </Link>
           </div>
         )
       },
@@ -72,7 +78,9 @@ export default function RankTable({ data }: Props) {
     {
       id: 'addedStars',
       accessorKey: 'addedStars',
-      header: 'Stars',
+      header: () => {
+        return <p className={clsx('text-center')}>Stars</p>
+      },
       cell: (props) => {
         const addedStars = props.row.original.addedStars
         return (

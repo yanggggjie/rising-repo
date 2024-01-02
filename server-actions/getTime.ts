@@ -12,7 +12,7 @@ export default async function getTime() {
 
   const cached = memoize(getData, {
     persist: true,
-    duration: 10,
+    duration: 10000,
     log: ['datacache'],
   })
 

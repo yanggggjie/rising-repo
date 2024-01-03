@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "deploy(prebuild)": "vercel build && vercel deploy --prebuilt",
     "listen": "set -a && source \"/Users/youshiyitian/.proxyman/proxyman_env_automatic_setup.sh\" && set +a && next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",

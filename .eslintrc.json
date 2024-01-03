@@ -9,10 +9,10 @@
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "no-empty-pattern": "off",
-    "no-unused-vars": "off",
+    "no-unused-vars": "off"
     // 箭头函数始终使用完整的return
-    "arrow-parens": ["error", "always"],
-    "arrow-body-style": ["error", "always"]
+//    "arrow-parens": ["error", "always"],
+//    "arrow-body-style": ["error", "always"]
     // 箭头函数始终使用完整的return
   }
 }

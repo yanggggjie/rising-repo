@@ -7,6 +7,7 @@ export default memoize(
     try {
       return await globalOfetch<IRepo>(`/repos/` + repoName, {})
     } catch (e) {
+      console.log('error in getARepo', e)
       return null
     }
   },

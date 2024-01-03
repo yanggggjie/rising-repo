@@ -1,6 +1,6 @@
 import getRankList, { IDuring } from '@/server-actions/getRankList'
 import dayjs from 'dayjs'
-import getARepo, { IRepo } from '@/server-actions/getARepo'
+import getARepo from '@/server-actions/getARepo'
 import RankTable from '@/components/rank/RankTable'
 import Date from '@/components/rank/Date'
 import { dateToDuring } from '@/components/rank/DateToDuring'
@@ -16,14 +16,17 @@ export default async function RankList({ searchParams }: Props) {
   const during: IDuring = dateToDuring[date as string]
   const rankList = await getRankList({ during })
 
-  const repoList = (
-    await Promise.all(
-      rankList.map(async (item) => {
-        return await getARepo({ repoName: item.repo_name })
-      }),
-    )
+  if (rankList.length === 0) return <div>rankList timeout</div>
+
+  const _repoList = await Promise.all(
+    rankList.map(async (item) => {
+      return await getARepo({ repoName: item.repo_name })
+    }),
   )
-    //   filter null
+
+  if (_repoList.length === 0) return <div>repoList timeout</div>
+
+  const repoList = _repoList
     .filter((repo) => {
       return repo !== null
     })

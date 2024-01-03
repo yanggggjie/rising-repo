@@ -10,9 +10,10 @@ export interface IDuring {
 
 export default memoize(
   async function getRankList({ during }: { during: IDuring }) {
-    const data = await ofetch('https://play.clickhouse.com/?user=play', {
-      method: 'POST',
-      body: `
+    try {
+      const data = await ofetch('https://play.clickhouse.com/?user=play', {
+        method: 'POST',
+        body: `
       SELECT
         repo_name,
         count() AS stars
@@ -24,11 +25,15 @@ export default memoize(
       GROUP BY
         repo_name
       ORDER BY stars DESC
-        LIMIT 500
+        LIMIT 400
         FORMAT JSON
     `,
-    })
-    return data.data as { repo_name: string; stars: number }[]
+      })
+      return data.data as { repo_name: string; stars: number }[]
+    } catch (e) {
+      console.log('error in getRankList', e)
+      return []
+    }
   },
   {
     revalidateTags: ['getRankList'],

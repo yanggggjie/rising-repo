@@ -1,8 +1,13 @@
-export default async function testAction({ time }: { time: number }) {
-  console.log('time', time)
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(`after ${time},hello world`)
-    }, time)
-  })
+'use server'
+import { ofetch } from 'ofetch'
+
+export default async function testAction() {
+  try {
+    const data = await ofetch('https://google.com/404', {
+      timeout: 100,
+    })
+    return data
+  } catch (e) {
+    return 123
+  }
 }

@@ -12,8 +12,9 @@ export default memoize(
   },
   {
     persist: true,
+    revalidateTags: ['getARepo'],
     duration: 24 * 3600,
-    log: ['datacache'],
+    log: ['verbose'],
   },
 )
 

@@ -24,13 +24,14 @@ export default memoize(
       GROUP BY
         repo_name
       ORDER BY stars DESC
-        LIMIT 10
+        LIMIT 500
         FORMAT JSON
     `,
     })
     return data.data as { repo_name: string; stars: number }[]
   },
   {
+    revalidateTags: ['getRankList'],
     persist: true,
     duration: 24 * 3600,
     log: ['datacache'],

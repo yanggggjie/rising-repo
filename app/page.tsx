@@ -1,18 +1,48 @@
-import RankList from '@/components/RankList'
-import User from '@/components/User'
-import Logout from '@/components/Logout'
-import TestSQL from '@/components/TestSQL'
+import getRankList, { IDuring } from '@/server-actions/getRankList'
+import dayjs from 'dayjs'
+import getARepo, { IRepo } from '@/server-actions/getARepo'
+import RankTable from '@/components/rank/RankTable'
+import Date from '@/components/rank/Date'
+import { dateToDuring } from '@/components/rank/DateToDuring'
+import { dateParser } from '@/components/rank/dateParser'
+import { clsx } from 'clsx'
 
-interface Props {}
+interface Props {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
 
-export default function Page({}: Props) {
+export default async function RankList({ searchParams }: Props) {
+  const date = dateParser.parseServerSide(searchParams['date'])
+  const during: IDuring = dateToDuring[date as string]
+  const rankList = await getRankList({ during })
+
+  const repoList = (
+    await Promise.all(
+      rankList.map(async (item) => {
+        return await getARepo({ repoName: item.repo_name })
+      }),
+    )
+  )
+    //   filter null
+    .filter((repo) => {
+      return repo !== null
+    })
+    // add addedStars
+    .map((repo, index) => {
+      return {
+        ...repo,
+        addedStars: rankList[index].stars,
+      }
+    }) as any
+
   return (
-    <div>
-      <TestSQL></TestSQL>
-      <hr />
-      <Logout></Logout>
-      <User></User>
-      <RankList></RankList>
+    <div className={clsx('p-4 space-y-2')}>
+      <div className={clsx('p-2 border')}>
+        <Date></Date>
+      </div>
+      <div className={clsx('border')}>
+        <RankTable data={repoList}></RankTable>
+      </div>
     </div>
   )
 }

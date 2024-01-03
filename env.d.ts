@@ -1,8 +1,7 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-    readonly CLIENT_SECRET: string;
-readonly NEXT_PUBLIC_CLIENT_ID: string;
+    readonly MY_GITHUB_TOKEN: string;
      // 其他环境变量...
     }
   }

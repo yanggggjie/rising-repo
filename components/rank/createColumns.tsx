@@ -1,23 +1,7 @@
-'use client'
-import _ from 'lodash'
+import { ColumnDef } from '@tanstack/react-table'
 import { clsx } from 'clsx'
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  useReactTable,
-} from '@tanstack/react-table'
-import { IRepo } from '@/server-actions/getARepo'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Link from 'next/link'
 import {
   Select,
   SelectContent,
@@ -26,18 +10,10 @@ import {
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import Link from 'next/link'
+import { IRepoTable } from '@/components/rank/RankTable'
+import _ from 'lodash'
 
-type IRepoTable = IRepo & {
-  addedStars: number
-}
-
-interface Props {
-  data: IRepoTable[]
-}
-
-export default function RankTable({ data }: Props) {
+export function createColumns(data: IRepoTable[]) {
   const languageList = data.map((item) => {
     if (item.language === null) return 'Unknown'
     return item.language
@@ -63,12 +39,12 @@ export default function RankTable({ data }: Props) {
         const owner = props.row.original.owner
         const htmlUrl = props.row.original.html_url
         return (
-          <div className={clsx(clsx('flex flex-col items-center w-24'))}>
+          <div className={clsx(clsx('flex flex-col items-center w-36'))}>
             <Avatar>
               <AvatarImage src={owner.avatar_url}></AvatarImage>
               <AvatarFallback>{owner.login}</AvatarFallback>
             </Avatar>
-            <Link href={htmlUrl} className={clsx('text-blue-500')}>
+            <Link href={htmlUrl} className={clsx('font-bold text-blue-500')}>
               {name}
             </Link>
           </div>
@@ -128,6 +104,10 @@ export default function RankTable({ data }: Props) {
           </Select>
         )
       },
+      cell: (props) => {
+        const language = props.row.original.language
+        return <div className={clsx('text-center')}>{language}</div>
+      },
     },
     {
       id: 'description',
@@ -135,53 +115,5 @@ export default function RankTable({ data }: Props) {
     },
   ]
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-  })
-
-  return (
-    <div>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            )
-          })}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  )
-                })}
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </div>
-  )
+  return columns
 }

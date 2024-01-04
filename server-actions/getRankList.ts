@@ -25,7 +25,7 @@ export default memoize(
       GROUP BY
         repo_name
       ORDER BY stars DESC
-        LIMIT 100
+        LIMIT 400
         FORMAT JSON
     `,
       })

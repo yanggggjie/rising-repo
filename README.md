@@ -4,4 +4,7 @@ a table to display recently popular repos
 roadmap
 - v0.9 Optimize performance
   - Shorten the first screen loading time
+    - move vercel deploy region to HongKong ✅
+    - add pagination to reduce home page data requests 🚧
   - Shorten the time of switching date button and add loader
+    - add loader 🚧

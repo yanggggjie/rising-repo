@@ -22,6 +22,8 @@ import * as React from 'react'
 import getARepo from '@/server-actions/getARepo'
 import { createColumns } from '@/components/rank/createColumns'
 import { dateToDuring } from '@/components/date/DateToDuring'
+import { BulletList } from 'react-content-loader'
+import { Button } from '@/components/ui/button'
 interface Props {
   date: string
 }
@@ -78,11 +80,17 @@ export default function RankList({ date }: Props) {
     getFilteredRowModel: getFilteredRowModel(),
   })
 
-  if (isLoading) return <div>loading</div>
+  if (isLoading)
+    return (
+      <div className={clsx('m-4 pt-10 border-2 h-[900px] overflow-hidden')}>
+        <BulletList />
+        <BulletList />
+      </div>
+    )
 
   return (
-    <div className={clsx('p-4')}>
-      <Table className={clsx('block overflow-auto h-[800px]', 'border-2')}>
+    <div className={clsx('m-4')}>
+      <Table className={clsx('block overflow-auto h-[900px]', 'border-2')}>
         <TableHeader className={clsx('sticky top-0 bg-white z-10')}>
           {table.getHeaderGroups().map((headerGroup) => {
             return (
@@ -120,16 +128,20 @@ export default function RankList({ date }: Props) {
           })}
           {isFetching && (
             <TableRow>
-              <TableCell>loading</TableCell>
+              <TableCell>
+                <Button>loading</Button>
+              </TableCell>
             </TableRow>
           )}
-          {!isFetching && currentPage < MAX_PAGE && (
+          {currentPage < MAX_PAGE && (
             <TableRow
               onClick={() => {
                 fetchNextPage()
               }}
             >
-              <TableCell>load more</TableCell>
+              <TableCell>
+                <Button>{isFetching ? ' loading ' : 'load more'}</Button>
+              </TableCell>
             </TableRow>
           )}
           {currentPage >= MAX_PAGE && (

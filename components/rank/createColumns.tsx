@@ -12,8 +12,7 @@ import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
 import _ from 'lodash'
 import { IRepo } from '@/server-actions/getARepo'
-
-export type IRepoTable = IRepo & {
+type IRepoTable = IRepo & {
   addedStars: number
 }
 
@@ -100,7 +99,7 @@ export function createColumns(data: IRepoTable[]) {
               {languageCount.map(([language, times]) => {
                 return (
                   <SelectItem key={language} value={language}>
-                    {language}({times})
+                    {language}({times}/{data.length})
                   </SelectItem>
                 )
               })}

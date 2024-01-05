@@ -1,5 +1,5 @@
 import { parseAsStringEnum } from 'nuqs/parsers'
-import { dateToDuring } from '@/components/rank/DateToDuring'
+import { dateToDuring } from '@/components/date/DateToDuring'
 import _ from 'lodash'
 
 export const dateParser = parseAsStringEnum(Object.keys(dateToDuring))

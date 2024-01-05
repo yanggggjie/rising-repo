@@ -1,8 +1,8 @@
 'use client'
 
-import { dateToDuring } from '@/components/rank/DateToDuring'
+import { dateToDuring } from '@/components/date/DateToDuring'
 import { useQueryState } from 'nuqs'
-import { dateParser } from '@/components/rank/dateParser'
+import { dateParser } from '@/components/date/dateParser'
 import { RadioGroup } from '@radix-ui/react-radio-group'
 import { RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
@@ -12,7 +12,7 @@ interface Props {}
 export default function Date({}: Props) {
   const [date, setDate] = useQueryState('date', dateParser)
   return (
-    <div>
+    <div className={clsx('p-4 pb-0')}>
       <RadioGroup
         defaultValue={date}
         className={clsx('space-x-5')}

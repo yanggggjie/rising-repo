@@ -4,8 +4,6 @@ import { clsx } from 'clsx'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import getRankList from '@/server-actions/getRankList'
 import dayjs from 'dayjs'
-import { useRef } from 'react'
-import { useVirtual } from 'react-virtual'
 import {
   flexRender,
   getCoreRowModel,
@@ -22,52 +20,64 @@ import {
 } from '@/components/ui/table'
 import * as React from 'react'
 import getARepo from '@/server-actions/getARepo'
-import { createColumns } from '@/app/createColumns'
-interface Props {}
+import { createColumns } from '@/components/rank/createColumns'
+import { dateToDuring } from '@/components/date/DateToDuring'
+interface Props {
+  date: string
+}
 
-export default function RankList({}: Props) {
+const MAX_PAGE = 100
+const LIMIT = 10
+
+export default function RankList({ date }: Props) {
+  const { start, end } = dateToDuring[date]
+
+  console.log('start', start)
+  console.log('end', end)
+
   const { data, isLoading, fetchNextPage, isFetching } = useInfiniteQuery({
-    queryKey: ['rankList'],
+    queryKey: ['rankList', start, end, MAX_PAGE, LIMIT],
     queryFn: async ({ pageParam }) => {
-      const offset = pageParam * 3
-      const limit = 3
-      const start = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
-      const end = dayjs().format('YYYY-MM-DD')
-      const res = await getRankList({ offset, limit, start, end })
-      const all = await Promise.all(
-        res.map((item) => {
+      const offset = pageParam * LIMIT
+      const limit = LIMIT
+      const rankList = await getRankList({ offset, limit, start, end })
+      const _repoList = await Promise.all(
+        rankList.map((item) => {
           return getARepo({ repoName: item.repoName })
         }),
       )
-      const all2 = all
+      const repoList = _repoList
         .map((item, index) => {
           if (item === null) return null
           return {
             ...item,
-            addedStars: res[index].addedStars,
+            addedStars: rankList[index].addedStars,
           }
         })
         .filter((item) => {
           return item !== null
         })
-      console.log('all2', all2)
 
-      return all2
+      console.log('repoList', repoList)
+
+      return repoList
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
       return lastPageParam + 1
     },
   })
+  const currentPage = data?.pageParams.length || 0
 
   const flatData = React.useMemo(() => {
     return _.flatten(data?.pages)
   }, [data])
-
+  // @ts-ignore
   const columns = createColumns(flatData)
 
   const table = useReactTable({
     data: flatData,
+    // @ts-ignore
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -76,8 +86,8 @@ export default function RankList({}: Props) {
   if (isLoading) return <div>loading</div>
 
   return (
-    <div className={clsx('p-4 pt-20')}>
-      <Table className={clsx('block overflow-auto h-[300px]')}>
+    <div className={clsx('p-4')}>
+      <Table className={clsx('block overflow-auto h-[800px]', 'border-2')}>
         <TableHeader className={clsx('sticky top-0 bg-white z-10')}>
           {table.getHeaderGroups().map((headerGroup) => {
             return (
@@ -113,17 +123,23 @@ export default function RankList({}: Props) {
               </TableRow>
             )
           })}
-          {isFetching ? (
+          {isFetching && (
             <TableRow>
               <TableCell>loading</TableCell>
             </TableRow>
-          ) : (
+          )}
+          {!isFetching && currentPage < MAX_PAGE && (
             <TableRow
               onClick={() => {
                 fetchNextPage()
               }}
             >
               <TableCell>load more</TableCell>
+            </TableRow>
+          )}
+          {currentPage >= MAX_PAGE && (
+            <TableRow>
+              <TableCell>no more</TableCell>
             </TableRow>
           )}
         </TableBody>

@@ -32,9 +32,6 @@ const LIMIT = 10
 export default function RankList({ date }: Props) {
   const { start, end } = dateToDuring[date]
 
-  console.log('start', start)
-  console.log('end', end)
-
   const { data, isLoading, fetchNextPage, isFetching } = useInfiniteQuery({
     queryKey: ['rankList', start, end, MAX_PAGE, LIMIT],
     queryFn: async ({ pageParam }) => {
@@ -57,8 +54,6 @@ export default function RankList({ date }: Props) {
         .filter((item) => {
           return item !== null
         })
-
-      console.log('repoList', repoList)
 
       return repoList
     },

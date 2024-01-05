@@ -11,11 +11,7 @@ import {
 import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
 import _ from 'lodash'
-import { IRepo } from '@/server-actions/getARepo'
-
-export type IRepoTable = IRepo & {
-  addedStars: number
-}
+import { IRepoTable } from '@/app/RankList'
 
 export function createColumns(data: IRepoTable[]) {
   const languageList = data.map((item) => {

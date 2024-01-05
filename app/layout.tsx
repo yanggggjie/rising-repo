@@ -4,6 +4,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import RQProvider from '@/app/RQProvider'
 
 export const metadata: Metadata = {
   title: 'rising repo',
@@ -18,7 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        <RQProvider>{children}</RQProvider>
         <Analytics></Analytics>
         <SpeedInsights />
       </body>

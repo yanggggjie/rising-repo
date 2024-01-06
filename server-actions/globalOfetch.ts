@@ -7,10 +7,9 @@ const globalOfetch = ofetch.create({
   onRequest: ({ options }) => {
     options.headers = {
       ...options.headers,
-      'Content-Type': 'application/json',
-      Accept: 'application/vnd.github.v3+json',
+      Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      Authorization: `Bearer ${process.env.MY_GITHUB_TOKEN}`,
+      Authorization: `Bearer ${process.env.READ_WRITE_RISING_REPO}`,
     }
   },
   timeout: 2000,

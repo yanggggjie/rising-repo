@@ -2,12 +2,21 @@
 
 import getRankList from '@/server-actions/getRankList'
 import getARepo from '@/server-actions/getARepo'
+import dayjs from 'dayjs'
+import { kv } from '@vercel/kv'
+import { dateToDuring } from '@/components/date/DateToDuring'
 
-export default async function getRankListWithLanguage() {
+interface Props {
+  date: 'yesterday' | 'lastWeek' | 'lastMonth'
+}
+
+export default async function genRank({ date }: Props) {
+  const { start, end } = dateToDuring[date]
+
   const rankList = await getRankList({
-    start: '2021-01-01',
-    end: '2021-01-02',
-    limit: 10,
+    start,
+    end,
+    limit: 1000,
     offset: 0,
   })
   const repoListWithLanguage = await Promise.all(
@@ -22,4 +31,6 @@ export default async function getRankListWithLanguage() {
     }),
   )
   console.log('repoListWithLanguage', repoListWithLanguage)
+  const res = await kv.set('yesterday', repoListWithLanguage)
+  console.log('res', res)
 }

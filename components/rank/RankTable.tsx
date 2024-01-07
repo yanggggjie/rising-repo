@@ -50,7 +50,7 @@ export default function RankTable({ data }: Props) {
   return (
     <div className={clsx('m-4')}>
       <Table className={clsx('block overflow-auto h-[900px]', 'border-2')}>
-        <TableHeader className={clsx('block sticky top-0 bg-white z-10')}>
+        <TableHeader className={clsx('sticky top-0 bg-white z-10')}>
           {table.getHeaderGroups().map((headerGroup) => {
             return (
               <TableRow key={headerGroup.id}>

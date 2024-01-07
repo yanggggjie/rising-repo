@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 import { IDate } from '@/components/date/dateToDuring'
 import DatePicker from '@/components/date/DatePicker'
 import { dateParser } from '@/components/date/dateParser'
+import { BulletList } from 'react-content-loader'
 interface Props {
   searchParams: any
 }
@@ -13,10 +14,17 @@ interface Props {
 export default function Page({ searchParams }: Props) {
   const date = dateParser.parseServerSide(searchParams.date) as IDate
   const rankPromise = getRank({ date })
+  const Fallback = (
+    <div className={clsx('m-4 h-[900px] border-2 overflow-auto')}>
+      <BulletList />
+      <BulletList />
+    </div>
+  )
+
   return (
     <div>
       <DatePicker></DatePicker>
-      <Suspense fallback={<div>loading</div>}>
+      <Suspense fallback={Fallback}>
         <DisplayRank
           // @ts-ignore
           rankPromise={rankPromise}

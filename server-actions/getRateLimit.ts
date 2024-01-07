@@ -1,7 +1,7 @@
 'use server'
 import { globalOfetch } from '@/server-actions/globalOfetch'
 
-export default async function getGithubLimit() {
+export default async function getRateLimit() {
   try {
     return await globalOfetch('rate_limit', {
       method: 'GET',

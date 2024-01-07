@@ -12,11 +12,9 @@ import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
 import _ from 'lodash'
 import { IRepo } from '@/server-actions/getARepo'
-type IRepoTable = IRepo & {
-  addedStars: number
-}
+import { IRankItem } from '@/server-actions/kv/setRank'
 
-export function createColumns(data: IRepoTable[]) {
+export function createColumns(data: IRankItem[]) {
   const languageList = data.map((item) => {
     if (item.language === null) return 'Unknown'
     return item.language
@@ -30,25 +28,27 @@ export function createColumns(data: IRepoTable[]) {
     1,
   ).reverse()
 
-  const columns: ColumnDef<IRepoTable>[] = [
+  const columns: ColumnDef<IRankItem>[] = [
     {
-      id: 'name',
-      accessorKey: 'name',
+      id: 'repoName',
+      accessorKey: 'repoName',
       header: () => {
         return <p className={clsx('text-center')}>Name</p>
       },
       cell: (props) => {
-        const name = props.row.original.name
-        const owner = props.row.original.owner
-        const htmlUrl = props.row.original.html_url
+        const repoName = props.row.original.repoName
+        const nameWithoutOwner = repoName.split('/')[1]
+        const ownerLogin = props.row.original.ownerLogin
+        const ownerAvatar = props.row.original.ownerAvatar
+        const githubURL = `https://github.com/${repoName}`
         return (
           <div className={clsx(clsx('flex flex-col items-center w-36'))}>
             <Avatar>
-              <AvatarImage src={owner.avatar_url}></AvatarImage>
-              <AvatarFallback>{owner.login}</AvatarFallback>
+              <AvatarImage src={ownerAvatar}></AvatarImage>
+              <AvatarFallback>{ownerLogin}</AvatarFallback>
             </Avatar>
-            <Link href={htmlUrl} className={clsx('font-bold text-blue-500')}>
-              {name}
+            <Link href={githubURL} className={clsx('font-bold text-blue-500')}>
+              {nameWithoutOwner}
             </Link>
           </div>
         )

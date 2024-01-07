@@ -5,7 +5,8 @@ import { memoize } from 'nextjs-better-unstable-cache'
 export default memoize(
   async function getARepo({ repoName }: { repoName: string }) {
     try {
-      return await globalOfetch<IRepo>(`/repos/` + repoName, {})
+      const res = await globalOfetch<IRepo>(`/repos/` + repoName, {})
+      return res
     } catch (e) {
       console.log('error in getARepo', e)
       return null

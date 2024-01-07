@@ -9,10 +9,10 @@ const globalOfetch = ofetch.create({
       ...options.headers,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      Authorization: `Bearer ${process.env.READ_WRITE_RISING_REPO}`,
+      Authorization: `Bearer ${process.env.MY_GITHUB_TOKEN}`,
     }
   },
-  timeout: 2000,
+  // timeout: 2000,
 })
 
 export { globalOfetch }

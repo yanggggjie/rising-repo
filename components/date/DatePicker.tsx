@@ -13,7 +13,7 @@ export default function DatePicker({}: Props) {
   const [date, setDate] = useQueryState('date', dateParser)
 
   return (
-    <div className={clsx('p-4 pb-0')}>
+    <div>
       <RadioGroup
         defaultValue={date}
         className={clsx('space-x-5')}

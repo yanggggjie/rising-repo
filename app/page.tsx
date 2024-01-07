@@ -7,6 +7,8 @@ import { IDate } from '@/components/date/dateToDuring'
 import DatePicker from '@/components/date/DatePicker'
 import { dateParser } from '@/components/date/dateParser'
 import { BulletList } from 'react-content-loader'
+import { GithubIcon } from 'lucide-react'
+import Link from 'next/link'
 interface Props {
   searchParams: any
 }
@@ -23,7 +25,16 @@ export default function Page({ searchParams }: Props) {
 
   return (
     <div>
-      <DatePicker></DatePicker>
+      <div className={clsx('p-8 pb-0', 'flex flex-row items-center')}>
+        <DatePicker></DatePicker>
+        <div className={clsx('grow')}></div>
+        <Link
+          target={'_blank'}
+          href={'https://github.com/yanggggjie/rising-repo'}
+        >
+          <GithubIcon></GithubIcon>
+        </Link>
+      </div>
       <Suspense fallback={Fallback}>
         <DisplayRank
           // @ts-ignore

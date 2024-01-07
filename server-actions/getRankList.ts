@@ -10,12 +10,16 @@ interface Props {
   offset: number
 }
 
-export default memoize(
-  async function getRankList({ start, end, limit, offset }: Props) {
-    try {
-      const data = await ofetch('https://play.clickhouse.com/?user=play', {
-        method: 'POST',
-        body: `
+export default async function getRankList({
+  start,
+  end,
+  limit,
+  offset,
+}: Props) {
+  try {
+    const data = await ofetch('https://play.clickhouse.com/?user=play', {
+      method: 'POST',
+      body: `
       SELECT
         repo_name as repoName,
         count() AS addedStars
@@ -31,17 +35,12 @@ export default memoize(
         OFFSET ${offset}
         FORMAT JSON
     `,
-      })
-      return data.data as { repoName: string; addedStars: number }[]
-    } catch (e) {
-      console.log('error in getRankList', e)
-      return []
-    }
-  },
-  {
-    revalidateTags: ['getRankList'],
-    persist: true,
-    duration: 24 * 3600,
-    log: ['datacache'],
-  },
-)
+      // @ts-ignore
+      cache: 'force-no-cache',
+    })
+    return data.data as { repoName: string; addedStars: number }[]
+  } catch (e) {
+    console.log('error in getRankList', e)
+    return []
+  }
+}

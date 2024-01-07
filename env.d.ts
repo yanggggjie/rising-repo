@@ -1,7 +1,8 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-    readonly KV_REST_API_READ_ONLY_TOKEN: string;
+    readonly ADMIN_TOKEN: string;
+readonly KV_REST_API_READ_ONLY_TOKEN: string;
 readonly KV_REST_API_TOKEN: string;
 readonly KV_REST_API_URL: string;
 readonly KV_URL: string;

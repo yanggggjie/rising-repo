@@ -15,15 +15,5 @@ export default function Page({}: Props) {
   const router = useRouter()
   const [token, setToken] = useQueryState('token', parseAsString)
 
-  return (
-    <div>
-      <button
-        onClick={() => {
-          revalidateRank()
-        }}
-      >
-        revalidateRank
-      </button>
-    </div>
-  )
+  return <div></div>
 }

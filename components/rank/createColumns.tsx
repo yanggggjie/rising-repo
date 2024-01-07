@@ -41,15 +41,20 @@ export function createColumns(data: IRankItem[]) {
         const ownerAvatar = props.row.original.ownerAvatar
         const githubURL = `https://github.com/${repoName}`
         return (
-          <div className={clsx(clsx('flex flex-col items-center w-36'))}>
+          <Link
+            target={'_blank'}
+            href={githubURL}
+            className={clsx(
+              'flex flex-col items-center w-44',
+              'font-bold  text-blue-500',
+            )}
+          >
             <Avatar>
               <AvatarImage src={ownerAvatar}></AvatarImage>
               <AvatarFallback>{ownerLogin}</AvatarFallback>
             </Avatar>
-            <Link href={githubURL} className={clsx('font-bold text-blue-500')}>
-              {nameWithoutOwner}
-            </Link>
-          </div>
+            {nameWithoutOwner}
+          </Link>
         )
       },
     },
@@ -64,7 +69,8 @@ export function createColumns(data: IRankItem[]) {
         return (
           <p
             className={clsx(
-              'flex flex-row items-center justify-start gap-2 text-green-700 font-bold',
+              'flex flex-row items-center  justify-start gap-2 ',
+              'text-lg text-green-700',
             )}
           >
             +{addedStars}

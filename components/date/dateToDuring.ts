@@ -1,6 +1,11 @@
 import dayjs from 'dayjs'
 
-export const dateToDuring = {
+export type IDate = 'yesterday' | 'lastWeek' | 'lastMonth'
+export type IDuring = {
+  start: string
+  end: string
+}
+export const dateToDuring: Record<IDate, IDuring> = {
   yesterday: {
     start: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
     end: dayjs().format('YYYY-MM-DD'),
@@ -11,14 +16,6 @@ export const dateToDuring = {
   },
   lastMonth: {
     start: dayjs().subtract(30, 'day').format('YYYY-MM-DD'),
-    end: dayjs().format('YYYY-MM-DD'),
-  },
-  last3Months: {
-    start: dayjs().subtract(90, 'day').format('YYYY-MM-DD'),
-    end: dayjs().format('YYYY-MM-DD'),
-  },
-  lastYear: {
-    start: dayjs().subtract(365, 'day').format('YYYY-MM-DD'),
     end: dayjs().format('YYYY-MM-DD'),
   },
 }

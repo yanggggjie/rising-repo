@@ -1,16 +1,17 @@
 'use client'
 
-import { dateToDuring } from '@/components/date/DateToDuring'
 import { useQueryState } from 'nuqs'
 import { dateParser } from '@/components/date/dateParser'
 import { RadioGroup } from '@radix-ui/react-radio-group'
 import { RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { clsx } from 'clsx'
+import { dateToDuring } from '@/components/date/dateToDuring'
 interface Props {}
 
-export default function Date({}: Props) {
+export default function DatePicker({}: Props) {
   const [date, setDate] = useQueryState('date', dateParser)
+
   return (
     <div className={clsx('p-4 pb-0')}>
       <RadioGroup

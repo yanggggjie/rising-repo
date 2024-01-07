@@ -11,7 +11,6 @@ import {
 import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
 import _ from 'lodash'
-import { IRepo } from '@/server-actions/getARepo'
 import { IRankItem } from '@/server-actions/kv/setRank'
 
 export function createColumns(data: IRankItem[]) {

@@ -3,9 +3,18 @@ a table to display recently popular repos
 
 roadmap
 
-- v0.11 use virtual table
 
-  - The table with 1000 rows will be very slow. Use virtual lists to improve performance 🚧
+
+- v0.11.1 optimize ✅
+
+  - add a better-looking loader ✅
+  - when language filter change scroll to top ✅
+
+  
+
+- v0.11 use virtual table ⌛️
+
+  - The table with 1000 rows will be very slow. Use virtual lists to improve performance ⌛️(Is it really necessary?)
 
     
 

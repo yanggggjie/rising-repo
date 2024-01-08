@@ -1,14 +1,20 @@
-a table to display recently popular repos
+### a table to display recently popular repos
+
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
-roadmap
+### roadmap
 
+- v0.12 add create time column and filter
 
+  - Most of the repos in this rank are very old and they are already well known. Therefore, it is necessary to add the create time column to discover the rising new stars 🚧
+
+  
 
 - v0.11.1 optimize ✅
 
   - add a better-looking loader ✅
   - when language filter change scroll to top ✅
+  - open links  in a new tab ✅
 
   
 
@@ -33,3 +39,23 @@ roadmap
   - Shorten the time of switching date button and add loader
     - add loader ✅
   - vercel Real Experience Score increased from 53 to 79 🚀
+
+### Thanks
+
+- [vercel](https://github.com/vercel/vercel)  For nextjs and vercel cloud services
+
+- [GH Archive](https://github.com/igrigorik/gharchive.org)  For github event data
+
+- [github-explorer](https://github.com/ClickHouse/github-explorer) For database services
+
+  
+
+
+
+
+
+
+
+
+
+ 

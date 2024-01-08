@@ -4,25 +4,58 @@ import { clsx } from 'clsx'
 import setRank from '@/server-actions/kv/setRank'
 import getRank from '@/server-actions/kv/getRank'
 import getRateLimit from '@/server-actions/getRateLimit'
-import { IDate } from '@/components/date/dateToDuring'
+import { dateToDuring, IDate } from '@/components/date/dateToDuring'
+import revalidateRank from '@/server-actions/kv/revalidateRank'
+import getRankList from '@/server-actions/getRankList'
 
 interface Props {}
 export default function Admin({}: Props) {
   const dateList: IDate[] = ['yesterday', 'lastWeek', 'lastMonth']
   return (
     <div>
-      <div className={'space-x-2'}>
+      <button
+        onClick={async () => {
+          const date = 'yesterday'
+          const { start, end } = dateToDuring[date]
+
+          const res = await getRankList({
+            start,
+            end,
+            offset: 0,
+            limit: 10,
+          })
+          console.log('res', res)
+        }}
+      >
+        get rank list
+      </button>
+      <div className={''}>
         {dateList.map((date) => (
-          <button
+          <div
             key={date}
             onClick={() => {
               setRank({ date })
             }}
           >
             setRank {date}
-          </button>
+          </div>
         ))}
       </div>
+      <hr />
+      <div className={''}>
+        {dateList.map((date) => (
+          <div
+            key={date}
+            onClick={async () => {
+              const res = await getRank({ date })
+              console.log('res', res)
+            }}
+          >
+            get {date}
+          </div>
+        ))}
+      </div>
+      <hr />
       <button
         onClick={async () => {
           const res = await getRateLimit()
@@ -30,6 +63,14 @@ export default function Admin({}: Props) {
         }}
       >
         get rate_limit
+      </button>
+      <hr />
+      <button
+        onClick={() => {
+          revalidateRank()
+        }}
+      >
+        revalidateRank
       </button>
     </div>
   )

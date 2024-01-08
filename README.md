@@ -8,7 +8,7 @@
 
   - Most of the repos in this rank are very old and they are already well known. Therefore, it is necessary to add the create time column to discover the rising new stars 🚧
 
-  
+
 
 - v0.11.1 optimize ✅
 
@@ -16,13 +16,13 @@
   - when language filter change scroll to top ✅
   - open links  in a new tab ✅
 
-  
+
 
 - v0.11 use virtual table ⌛️
 
   - The table with 1000 rows will be very slow. Use virtual lists to improve performance ⌛️(Is it really necessary?)
 
-    
+
 
 - v0.10 add language json cache ✅
 
@@ -30,7 +30,7 @@
   - 💡Query the repo rank list for language information and cache it. Rank lists for specific languages can be generated ✅
   - use redis for cache, Now you can see the top 1000 at once without the annoying load more  🤯🤯🤯
 
-  
+
 
 - v0.9 Optimize performance ✅
   - Shorten the first screen loading time
@@ -39,23 +39,3 @@
   - Shorten the time of switching date button and add loader
     - add loader ✅
   - vercel Real Experience Score increased from 53 to 79 🚀
-
-### Thanks
-
-- [vercel](https://github.com/vercel/vercel)  For nextjs and vercel cloud services
-
-- [GH Archive](https://github.com/igrigorik/gharchive.org)  For github event data
-
-- [github-explorer](https://github.com/ClickHouse/github-explorer) For database services
-
-  
-
-
-
-
-
-
-
-
-
- 

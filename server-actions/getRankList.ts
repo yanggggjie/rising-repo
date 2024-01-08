@@ -35,8 +35,6 @@ export default async function getRankList({
         OFFSET ${offset}
         FORMAT JSON
     `,
-      // @ts-ignore
-      cache: 'force-no-cache',
     })
     return data.data as { repoName: string; addedStars: number }[]
   } catch (e) {

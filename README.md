@@ -4,11 +4,20 @@
 
 ### roadmap
 
+- v0.12 optimize
+
+  - Switching filters is slow 🚧
+  - Add animation, scrolling, hovering and more 🚧
+
+  
+
 - v0.12 add create time column and filter
 
-  - Most of the repos in this rank are very old and they are already well known. Therefore, it is necessary to add the create time column to discover the rising new stars 🚧
-
-
+  - Most of the repos in this rank are very old and they are already well known. Therefore, it is necessary to add the create time column to discover the rising new stars ✅
+  
+  - Add age column can filter by  year month and day 🎂 
+  
+    
 
 - v0.11.1 optimize ✅
 

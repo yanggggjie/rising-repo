@@ -2,6 +2,7 @@
 
 import { ofetch } from 'ofetch'
 import { memoize } from 'nextjs-better-unstable-cache'
+import axios from 'axios'
 
 interface Props {
   start: string
@@ -17,9 +18,7 @@ export default async function getRankList({
   offset,
 }: Props) {
   try {
-    const data = await ofetch('https://play.clickhouse.com/?user=play', {
-      method: 'POST',
-      body: `
+    const body = `
       SELECT
         repo_name as repoName,
         count() AS addedStars
@@ -34,9 +33,13 @@ export default async function getRankList({
         LIMIT ${limit}
         OFFSET ${offset}
         FORMAT JSON
-    `,
-    })
-    return data.data as { repoName: string; addedStars: number }[]
+    `
+    const url = 'https://play.clickhouse.com/'
+    const headers = {
+      Authorization: 'Basic cGxheTo=',
+    }
+    const res = await axios.post(url, body, { headers: headers })
+    return res.data.data as { repoName: string; addedStars: number }[]
   } catch (e) {
     console.log('error in getRankList', e)
     return []

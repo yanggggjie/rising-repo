@@ -12,6 +12,24 @@ import { SelectValue } from '@radix-ui/react-select'
 import * as React from 'react'
 import _ from 'lodash'
 import { IRankItem } from '@/server-actions/kv/setRank'
+import dayjs from 'dayjs'
+
+function genCreatedAtDOM(createdDate: string) {
+  const createdDay = dayjs(createdDate)
+  const today = dayjs()
+  const yearsDifference = today.diff(createdDay, 'year')
+  const monthsDifference = today.diff(createdDay, 'month')
+  const daysDifference = today.diff(createdDay, 'day')
+  if (yearsDifference > 0) {
+    return <span className={clsx('text-red-700')}>{yearsDifference}Year</span>
+  }
+  if (monthsDifference > 0) {
+    return (
+      <span className={clsx('text-blue-700')}>{monthsDifference}Month</span>
+    )
+  }
+  return <span className={clsx('text-green-700')}>{daysDifference}Day</span>
+}
 
 export function createColumns(data: IRankItem[]) {
   const languageList = data.map((item) => {
@@ -70,7 +88,7 @@ export function createColumns(data: IRankItem[]) {
           <p
             className={clsx(
               'flex flex-row items-center  justify-start gap-2 ',
-              'text-lg text-green-700',
+              'text-green-700',
             )}
           >
             +{addedStars}
@@ -79,19 +97,30 @@ export function createColumns(data: IRankItem[]) {
       },
     },
     {
-      id: 'language',
-      accessorKey: 'language',
+      id: 'createdAt',
+      accessorKey: 'createdAt',
       filterFn: (row, columnId, filterValue) => {
-        if (filterValue === 'Unknown') return row.getValue(columnId) === null
-        if (filterValue === 'All') return true
-        return filterValue === row.getValue(columnId)
+        const date = row.getValue(columnId)
+        // @ts-ignore
+        const yearDiff = dayjs().diff(date, 'year')
+        // @ts-ignore
+        const monthDiff = dayjs().diff(date, 'month')
+        // @ts-ignore
+        const dayDiff = dayjs().diff(date, 'day')
+
+        if (filterValue === 'Time') return true
+        if (filterValue === 'Year') return yearDiff > 0
+        if (filterValue === 'Month') return yearDiff === 0 && monthDiff > 0
+        if (filterValue === 'Day')
+          return yearDiff === 0 && monthDiff === 0 && dayDiff > 0
+        return true
       },
       header: (props) => {
         const { column } = props
         return (
           <Select
             value={column.getFilterValue() as string}
-            defaultValue={'All'}
+            defaultValue={'Time'}
             onValueChange={(value) => {
               column.setFilterValue(value)
             }}
@@ -100,7 +129,46 @@ export function createColumns(data: IRankItem[]) {
               <SelectValue placeholder="Language" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={'All'}>All({languageList.length})</SelectItem>
+              <SelectItem value={'Time'}>Age</SelectItem>
+              <SelectItem value={'Year'}>Year</SelectItem>
+              <SelectItem value={'Month'}>Month</SelectItem>
+              <SelectItem value={'Day'}>Day</SelectItem>
+            </SelectContent>
+          </Select>
+        )
+      },
+      cell: (props) => {
+        const createdAt = props.row.original.createdAt
+        return (
+          <div className={'w-16 text-center'}>{genCreatedAtDOM(createdAt)}</div>
+        )
+      },
+    },
+    {
+      id: 'language',
+      accessorKey: 'language',
+      filterFn: (row, columnId, filterValue) => {
+        if (filterValue === 'Unknown') return row.getValue(columnId) === null
+        if (filterValue === 'language') return true
+        return filterValue === row.getValue(columnId)
+      },
+      header: (props) => {
+        const { column } = props
+        return (
+          <Select
+            value={column.getFilterValue() as string}
+            defaultValue={'language'}
+            onValueChange={(value) => {
+              column.setFilterValue(value)
+            }}
+          >
+            <SelectTrigger className="border-0">
+              <SelectValue placeholder="Language" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={'language'}>
+                Language({languageList.length})
+              </SelectItem>
               {languageCount.map(([language, times]) => {
                 return (
                   <SelectItem key={language} value={language}>

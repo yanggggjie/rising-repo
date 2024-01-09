@@ -118,7 +118,7 @@ export function createColumns(data: IRankItem[]) {
       header: (props) => {
         const { column } = props
         return (
-          <div className={clsx('w-20')}>
+          <div className={clsx('w-[20.5]')}>
             <Select
               value={column.getFilterValue() as string}
               defaultValue={'Age'}
@@ -190,6 +190,9 @@ export function createColumns(data: IRankItem[]) {
     {
       id: 'description',
       accessorKey: 'description',
+      header: () => {
+        return <div className={'text-start'}>Description</div>
+      },
     },
   ]
 

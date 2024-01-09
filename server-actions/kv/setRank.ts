@@ -35,6 +35,7 @@ export default async function setRank({ date }: Props) {
       const repoName = item.repoName
       const repo = await getARepo({ repoName })
       if (!repo) return null
+      if (repo.language === 'Jupyter Notebook') repo.language = 'Jupyter'
       return {
         ...item,
         language: repo.language,

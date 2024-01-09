@@ -17,7 +17,6 @@ export default function Admin({}: Props) {
         onClick={async () => {
           const date = 'yesterday'
           const { start, end } = dateToDuring[date]
-
           const res = await getRankList({
             start,
             end,

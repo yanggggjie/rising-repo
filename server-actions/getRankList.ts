@@ -34,11 +34,10 @@ export default async function getRankList({
         OFFSET ${offset}
         FORMAT JSON
     `
-    const url = 'https://play.clickhouse.com/'
-    const headers = {
-      Authorization: 'Basic cGxheTo=',
-    }
-    const res = await axios.post(url, body, { headers: headers })
+    const url = 'https://play.clickhouse.com/?user=play'
+    const res = await axios.post(url, body)
+    // console.log('body', body)
+    console.log('res', res.data.data)
     return res.data.data as { repoName: string; addedStars: number }[]
   } catch (e) {
     console.log('error in getRankList', e)

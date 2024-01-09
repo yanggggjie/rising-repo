@@ -118,30 +118,30 @@ export function createColumns(data: IRankItem[]) {
       header: (props) => {
         const { column } = props
         return (
-          <Select
-            value={column.getFilterValue() as string}
-            defaultValue={'Time'}
-            onValueChange={(value) => {
-              column.setFilterValue(value)
-            }}
-          >
-            <SelectTrigger className="border-0">
-              <SelectValue placeholder="Language" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={'Time'}>Age</SelectItem>
-              <SelectItem value={'Year'}>Year</SelectItem>
-              <SelectItem value={'Month'}>Month</SelectItem>
-              <SelectItem value={'Day'}>Day</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className={clsx('w-20')}>
+            <Select
+              value={column.getFilterValue() as string}
+              defaultValue={'Age'}
+              onValueChange={(value) => {
+                column.setFilterValue(value)
+              }}
+            >
+              <SelectTrigger className="border-0">
+                <SelectValue placeholder="Age" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={'Age'}>Age</SelectItem>
+                <SelectItem value={'Year'}>Year</SelectItem>
+                <SelectItem value={'Month'}>Month</SelectItem>
+                <SelectItem value={'Day'}>Day</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         )
       },
       cell: (props) => {
         const createdAt = props.row.original.createdAt
-        return (
-          <div className={'w-16 text-center'}>{genCreatedAtDOM(createdAt)}</div>
-        )
+        return <div className={'pl-3'}>{genCreatedAtDOM(createdAt)}</div>
       },
     },
     {
@@ -155,34 +155,36 @@ export function createColumns(data: IRankItem[]) {
       header: (props) => {
         const { column } = props
         return (
-          <Select
-            value={column.getFilterValue() as string}
-            defaultValue={'language'}
-            onValueChange={(value) => {
-              column.setFilterValue(value)
-            }}
-          >
-            <SelectTrigger className="border-0">
-              <SelectValue placeholder="Language" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={'language'}>
-                Language({languageList.length})
-              </SelectItem>
-              {languageCount.map(([language, times]) => {
-                return (
-                  <SelectItem key={language} value={language}>
-                    {language}({times}/{data.length})
-                  </SelectItem>
-                )
-              })}
-            </SelectContent>
-          </Select>
+          <div className={clsx('w-36')}>
+            <Select
+              value={column.getFilterValue() as string}
+              defaultValue={'language'}
+              onValueChange={(value) => {
+                column.setFilterValue(value)
+              }}
+            >
+              <SelectTrigger className="border-0">
+                <SelectValue placeholder="Language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={'language'}>
+                  Language({languageList.length})
+                </SelectItem>
+                {languageCount.map(([language, times]) => {
+                  return (
+                    <SelectItem key={language} value={language}>
+                      {language}({times})
+                    </SelectItem>
+                  )
+                })}
+              </SelectContent>
+            </Select>
+          </div>
         )
       },
       cell: (props) => {
         const language = props.row.original.language
-        return <div className={clsx('text-center')}>{language}</div>
+        return <div className={clsx('pl-3')}>{language}</div>
       },
     },
     {

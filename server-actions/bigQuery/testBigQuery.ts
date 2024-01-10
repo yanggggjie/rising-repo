@@ -12,6 +12,23 @@ export default async function testBigQuery() {
                    ORDER BY addedStars
                      DESC LIMIT 10
     `
+
+    const queryDateRange = `SELECT
+  repo.name AS repoName,
+  COUNT(*) AS addedStars
+FROM
+  \`githubarchive.day.2020*\`
+WHERE
+  _TABLE_SUFFIX BETWEEN '0101' AND '0107'
+  AND type = 'WatchEvent'
+GROUP BY
+  repoName
+ORDER BY
+  addedStars DESC
+LIMIT
+  10
+`
+
     const options = {
       query: query,
       location: 'US',

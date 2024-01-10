@@ -1,4 +1,6 @@
 'use server'
+import dayjs from 'dayjs'
+
 const { BigQuery } = require('@google-cloud/bigquery')
 
 interface Props {
@@ -8,30 +10,57 @@ interface Props {
   offset: number
 }
 
+function genDayQuery(day: string) {
+  return `
+  SELECT
+    repo.name AS repoName,
+    COUNT(*) AS addedStarsTemp
+  FROM
+      \`githubarchive.day.${day}\`
+  WHERE
+      type = 'WatchEvent'
+  GROUP BY
+      repoName
+            `
+}
+
 export default async function getRankList({
   start,
   end,
   limit,
   offset,
 }: Props) {
-  const start_day = start.replaceAll('-', '')
+  let startDay = dayjs(start)
+  const endDay = dayjs(end)
+  const dayQueryList: string[] = []
+  // include endDay
+  while (!startDay.isAfter(endDay)) {
+    let day = startDay.format('YYYYMMDD')
+    dayQueryList.push(genDayQuery(day))
+    startDay = startDay.add(1, 'day')
+  }
+
+  const query =
+    `
+SELECT
+    repoName,
+    SUM(addedStarsTemp) AS addedStars
+ FROM (
+    ` +
+    dayQueryList.join(`
+  UNION ALL
+    `) +
+    `
+)
+GROUP BY
+  repoName
+ORDER BY
+  addedStars DESC
+LIMIT ${limit}
+  `
+
   try {
     const bigquery = new BigQuery()
-    const query = `SELECT
-    repo.name AS repoName,
-    COUNT(*) AS addedStars
-    FROM
-      \`githubarchive.day.${start_day}\`
-    WHERE
-    type = 'WatchEvent'
-    GROUP BY
-    repoName
-    ORDER BY
-    addedStars DESC
-    LIMIT
-    1000
-    `
-
     const options = {
       query: query,
       location: 'US',

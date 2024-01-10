@@ -41,8 +41,7 @@
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7",
-    "zustand": "^4.4.7"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",

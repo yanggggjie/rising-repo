@@ -1,7 +1,4 @@
 {
-  "plugins": [
-    "@tanstack/query"
-  ],
   "extends": [
     "next/core-web-vitals"
   ],

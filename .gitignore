@@ -5,3 +5,4 @@
 .env
 .env.development.local
 .vercel
+/temp

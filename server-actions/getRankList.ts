@@ -1,8 +1,5 @@
 'use server'
-
-import { ofetch } from 'ofetch'
-import { memoize } from 'nextjs-better-unstable-cache'
-import axios from 'axios'
+const { BigQuery } = require('@google-cloud/bigquery')
 
 interface Props {
   start: string
@@ -17,28 +14,32 @@ export default async function getRankList({
   limit,
   offset,
 }: Props) {
+  const start_day = start.replaceAll('-', '')
   try {
-    const body = `
-      SELECT
-        repo_name as repoName,
-        count() AS addedStars
-      FROM github_events
-      WHERE
-        event_type = 'WatchEvent' AND
-        created_at >= '${start}' AND
-        created_at < '${end}'
-      GROUP BY
-        repo_name
-      ORDER BY addedStars DESC
-        LIMIT ${limit}
-        OFFSET ${offset}
-        FORMAT JSON
+    const bigquery = new BigQuery()
+    const query = `SELECT
+    repo.name AS repoName,
+    COUNT(*) AS addedStars
+    FROM
+      \`githubarchive.day.${start_day}\`
+    WHERE
+    type = 'WatchEvent'
+    GROUP BY
+    repoName
+    ORDER BY
+    addedStars DESC
+    LIMIT
+    1000
     `
-    const url = 'https://play.clickhouse.com/?user=play'
-    const res = await axios.post(url, body)
-    // console.log('body', body)
-    console.log('res', res.data.data)
-    return res.data.data as { repoName: string; addedStars: number }[]
+
+    const options = {
+      query: query,
+      location: 'US',
+    }
+    const [job] = await bigquery.createQueryJob(options)
+    const [rows] = await job.getQueryResults()
+    console.log('rows', rows)
+    return rows as { repoName: string; addedStars: number }[]
   } catch (e) {
     console.log('error in getRankList', e)
     return []

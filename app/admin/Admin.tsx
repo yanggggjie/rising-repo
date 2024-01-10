@@ -7,6 +7,7 @@ import getRateLimit from '@/server-actions/getRateLimit'
 import { dateToDuring, IDate } from '@/components/date/dateToDuring'
 import revalidateRank from '@/server-actions/kv/revalidateRank'
 import getRankList from '@/server-actions/getRankList'
+import testBigQuery from '@/server-actions/bigQuery/testBigQuery'
 
 interface Props {}
 export default function Admin({}: Props) {
@@ -15,7 +16,7 @@ export default function Admin({}: Props) {
     <div>
       <button
         onClick={async () => {
-          const date = 'yesterday'
+          const date: IDate = 'yesterday'
           const { start, end } = dateToDuring[date]
           const res = await getRankList({
             start,
@@ -70,6 +71,14 @@ export default function Admin({}: Props) {
         }}
       >
         revalidateRank
+      </button>
+      <hr />
+      <button
+        onClick={() => {
+          testBigQuery()
+        }}
+      >
+        big query
       </button>
     </div>
   )

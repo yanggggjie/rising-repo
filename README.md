@@ -4,9 +4,19 @@
 
 ### roadmap
 
+
+
+- v0.13   big query ✅
+
+  - Migrate to google big query  ✅
+  - Update data at shorter intervals 🗓️ 
+  - More data is available, adding more key information 🗓️ 
+
+  
+
 - v0.12 optimize
 
-  - Switching filters is slow 🚧
+  - Switching filters is slow  ✅
   - Add animation, scrolling, hovering and more 🚧
 
   
@@ -37,7 +47,7 @@
 
   - Because the repo rank list api does not contain language information. A language-specific rank list cannot be generated ✅
   - 💡Query the repo rank list for language information and cache it. Rank lists for specific languages can be generated ✅
-  - use redis for cache, Now you can see the top 1000 at once without the annoying load more  🤯🤯🤯
+  - use redis for cache, Now you can see the top 1000 at once without the annoying load more  🤯
 
 
 

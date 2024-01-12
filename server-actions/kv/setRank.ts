@@ -18,6 +18,7 @@ export type IRankItem = {
   ownerLogin: string
   description: string
   createdAt: string
+  topics: string[]
 }
 
 export default async function setRank({ date }: Props) {
@@ -43,6 +44,7 @@ export default async function setRank({ date }: Props) {
         ownerLogin: repo.owner.login,
         description: repo.description,
         createdAt: repo.created_at,
+        topics: repo.topics,
       }
     }),
   )

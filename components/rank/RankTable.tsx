@@ -48,49 +48,51 @@ export default function RankTable({ data }: Props) {
 
   return (
     <div className={clsx('m-4')}>
-      <Table className={clsx('block overflow-auto h-[900px]', 'border-2')}>
-        <TableHeader className={clsx('sticky top-0 bg-white z-10')}>
-          {table.getHeaderGroups().map((headerGroup) => {
-            return (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            )
-          })}
-        </TableHeader>
-        <TableBody
-          ref={tableRef}
-          style={{
-            scrollMarginTop: '100px',
-          }}
-        >
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  )
-                })}
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
+      <div className={''}>
+        <Table className={clsx('block border-2 overflow-auto h-[900px]')}>
+          <TableHeader className={clsx('sticky top-0 bg-white z-10')}>
+            {table.getHeaderGroups().map((headerGroup) => {
+              return (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                      </TableHead>
+                    )
+                  })}
+                </TableRow>
+              )
+            })}
+          </TableHeader>
+          <TableBody
+            ref={tableRef}
+            style={{
+              scrollMarginTop: '100px',
+            }}
+          >
+            {table.getRowModel().rows.map((row) => {
+              return (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => {
+                    return (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   )
 }

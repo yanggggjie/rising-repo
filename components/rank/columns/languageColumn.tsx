@@ -13,6 +13,7 @@ import { SelectValue } from '@radix-ui/react-select'
 
 export const languageColumn: ColumnDef<IRankItem> = {
   id: 'language',
+  size: 20,
   accessorKey: 'language',
   filterFn: (row, columnId, filterValue) => {
     if (filterValue === 'Unknown') return row.getValue(columnId) === null
@@ -36,7 +37,7 @@ export const languageColumn: ColumnDef<IRankItem> = {
     ).reverse()
 
     return (
-      <div className={clsx('w-36')}>
+      <div className={clsx('w-[9.25rem]')}>
         <Select
           value={column.getFilterValue() as string}
           defaultValue={'language'}

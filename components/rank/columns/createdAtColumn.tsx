@@ -13,6 +13,7 @@ import { SelectValue } from '@radix-ui/react-select'
 
 export const createdAtColumn: ColumnDef<IRankItem> = {
   id: 'createdAt',
+  size: 20,
   accessorKey: 'createdAt',
   filterFn: (row, columnId, filterValue) => {
     const date = row.getValue(columnId)

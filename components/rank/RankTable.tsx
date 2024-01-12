@@ -48,13 +48,23 @@ export default function RankTable({ data }: Props) {
 
   return (
     <Table>
-      <TableHeader className={clsx('sticky top-0 bg-gray-100 z-10')}>
+      <TableHeader
+        className={clsx('sticky top-0 bg-gray-100 z-10')}
+        style={{
+          width: table.getTotalSize(),
+        }}
+      >
         {table.getHeaderGroups().map((headerGroup) => {
           return (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    style={{
+                      width: header.getSize(),
+                    }}
+                  >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext(),
@@ -77,7 +87,12 @@ export default function RankTable({ data }: Props) {
             <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => {
                 return (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    style={{
+                      width: cell.column.getSize(),
+                    }}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 )

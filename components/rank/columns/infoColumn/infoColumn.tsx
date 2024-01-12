@@ -31,7 +31,7 @@ export const infoColumn: ColumnDef<IRankItem> = {
         </Avatar>
         <div
           className={clsx(
-            'w-96 flex flex-col items-start justify-center gap-1',
+            'w-[30rem] flex flex-col items-start justify-center gap-1.5',
           )}
         >
           <Title name={nameWithoutOwner} href={githubURL}></Title>

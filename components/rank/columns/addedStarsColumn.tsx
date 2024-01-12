@@ -5,16 +5,17 @@ import * as React from 'react'
 
 export const addedStarsColumn: ColumnDef<IRankItem> = {
   id: 'addedStars',
+  size: 20,
   accessorKey: 'addedStars',
   header: () => {
-    return <p className={clsx('text-center')}>Stars</p>
+    return <p className={clsx('text-start')}>Stars</p>
   },
   cell: (props) => {
     const addedStars = props.row.original.addedStars
     return (
       <p
         className={clsx(
-          'flex flex-row items-center  justify-start  pl-2',
+          'flex flex-row items-center  justify-start',
           'text-green-700',
         )}
       >

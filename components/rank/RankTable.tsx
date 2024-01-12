@@ -17,15 +17,14 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import * as React from 'react'
-import { createColumns } from '@/components/rank/createColumns'
 import { IRankItem } from '@/server-actions/kv/setRank'
 import { useRef } from 'react'
+import { columns } from '@/components/rank/columns/columns'
 interface Props {
   data: IRankItem[]
 }
 
 export default function RankTable({ data }: Props) {
-  const columns = createColumns(data)
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   )

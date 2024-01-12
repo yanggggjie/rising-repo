@@ -10,9 +10,5 @@ interface Props {
 
 export default function DisplayRank({ rankPromise }: Props) {
   const data = use(rankPromise)
-  return (
-    <div>
-      <RankTable data={data}></RankTable>
-    </div>
-  )
+  return <RankTable data={data}></RankTable>
 }

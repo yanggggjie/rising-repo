@@ -9,9 +9,7 @@ import { infoColumn } from '@/components/rank/columns/infoColumn/infoColumn'
 
 export const columns: ColumnDef<IRankItem>[] = [
   infoColumn,
-  // repoNameColumn,
   addedStarsColumn,
   createdAtColumn,
   languageColumn,
-  // descriptionColumn,
 ]

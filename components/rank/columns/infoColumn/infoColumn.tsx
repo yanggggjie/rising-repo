@@ -11,7 +11,7 @@ import Topics from '@/components/rank/columns/infoColumn/Topics'
 export const infoColumn: ColumnDef<IRankItem> = {
   id: 'info',
   header: () => {
-    return <p className={clsx('text-center')}>Info</p>
+    return <div className={clsx('text-center')}>Info</div>
   },
   cell: (props) => {
     const row = props.row.original
@@ -24,12 +24,12 @@ export const infoColumn: ColumnDef<IRankItem> = {
     const topics = row.topics
 
     return (
-      <p className={clsx('flex flex-row items-center  justify-start gap-2 ')}>
+      <div className={clsx('flex flex-row items-center justify-start gap-2 ')}>
         <Avatar>
           <AvatarImage src={ownerAvatar}></AvatarImage>
           <AvatarFallback>{ownerLogin}</AvatarFallback>
         </Avatar>
-        <p
+        <div
           className={clsx(
             'w-96 flex flex-col items-start justify-center gap-1',
           )}
@@ -37,8 +37,8 @@ export const infoColumn: ColumnDef<IRankItem> = {
           <Title name={nameWithoutOwner} href={githubURL}></Title>
           <Description text={description}></Description>
           <Topics topics={topics}></Topics>
-        </p>
-      </p>
+        </div>
+      </div>
     )
   },
 }

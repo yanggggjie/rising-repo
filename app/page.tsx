@@ -16,16 +16,17 @@ interface Props {
 export default function Page({ searchParams }: Props) {
   const date = dateParser.parseServerSide(searchParams.date) as IDate
   const rankPromise = getRank({ date })
+
   const Fallback = (
-    <div className={clsx('m-4 h-[900px] border-2 overflow-auto')}>
+    <div className={clsx('border-2 overflow-hidden')}>
       <BulletList />
       <BulletList />
     </div>
   )
 
   return (
-    <div>
-      <div className={clsx('p-8 pb-0', 'flex flex-row items-center')}>
+    <div className={clsx('h-screen', 'flex flex-col gap-4', 'p-4')}>
+      <div className={clsx('flex flex-row items-center')}>
         <DatePicker></DatePicker>
         <div className={clsx('grow')}></div>
         <Link
@@ -35,12 +36,14 @@ export default function Page({ searchParams }: Props) {
           <GithubIcon></GithubIcon>
         </Link>
       </div>
-      <Suspense fallback={Fallback}>
-        <DisplayRank
-          // @ts-ignore
-          rankPromise={rankPromise}
-        ></DisplayRank>
-      </Suspense>
+      <div className={clsx('overflow-auto border-2')}>
+        <Suspense fallback={Fallback}>
+          <DisplayRank
+            // @ts-ignore
+            rankPromise={rankPromise}
+          ></DisplayRank>
+        </Suspense>
+      </div>
     </div>
   )
 }

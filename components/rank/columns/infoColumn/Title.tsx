@@ -9,14 +9,14 @@ interface Props {
 
 export default function Title({ name, href }: Props) {
   return (
-    <p className={clsx('flex flex-row gap-2')}>
+    <div className={clsx('flex flex-row gap-2 text-lg')}>
       <Link
         href={href}
         target={'_blank'}
         className={clsx('font-bold  text-blue-500')}
       >
-        <p>{name}</p>
+        <div>{name}</div>
       </Link>
-    </p>
+    </div>
   )
 }

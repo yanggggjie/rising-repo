@@ -14,7 +14,7 @@ export const addedStarsColumn: ColumnDef<IRankItem> = {
     return (
       <p
         className={clsx(
-          'flex flex-row items-center  justify-start gap-2 ',
+          'flex flex-row items-center  justify-start  pl-2',
           'text-green-700',
         )}
       >

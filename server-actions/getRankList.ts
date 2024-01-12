@@ -58,6 +58,7 @@ ORDER BY
   addedStars DESC
 LIMIT ${limit}
   `
+  console.log('query', query)
 
   try {
     const bigquery = new BigQuery()

@@ -12,11 +12,9 @@ import TopicFilter from '@/components/rank/columns/infoColumn/TopicFilter/TopicF
 export const infoColumn: ColumnDef<IRankItem> = {
   id: 'info',
   filterFn: (row, columnId, filterValue) => {
-    console.log('row', row)
-
-    if (filterValue === 'Unknown') return row.getValue(columnId) === null
-    if (filterValue === 'language') return true
-    return filterValue === row.getValue(columnId)
+    if (filterValue === 'all') return true
+    const topics = row.original.topics
+    return topics.includes(filterValue)
   },
   header: (props) => {
     const column = props.column
@@ -34,10 +32,18 @@ export const infoColumn: ColumnDef<IRankItem> = {
       1,
     ).reverse()
 
+    const selectedTopic =
+      column.getFilterValue() === undefined
+        ? 'topic'
+        : column.getFilterValue() === 'all'
+          ? 'topic'
+          : (column.getFilterValue() as string)
+
     return (
-      <div className={clsx('flex flex-row gap-10')}>
+      <div className={clsx('flex flex-row items-center gap-10 pl-3')}>
         <div>Info</div>
         <TopicFilter
+          selectedTopic={selectedTopic}
           onTopicClick={(topic) => {
             column.setFilterValue(topic)
           }}

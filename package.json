@@ -26,7 +26,6 @@
     "@tanstack/react-table": "^8.11.2",
     "@tanstack/react-virtual": "^3.0.1",
     "@vercel/kv": "^1.0.1",
-    "@vercel/speed-insights": "^1.0.2",
     "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
     "cookies-next": "^4.1.0",

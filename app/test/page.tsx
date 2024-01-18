@@ -9,6 +9,7 @@ export default function Page({}: Props) {
     <div className={'h-full w-full'}>
       <div className={'sticky top-0 bg-red-100'}> header </div>
       <Many></Many>
+      <button></button>
     </div>
   )
 }

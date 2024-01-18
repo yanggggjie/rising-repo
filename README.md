@@ -3,15 +3,18 @@
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
 ### roadmap
+- v0.15
+  - add deploy your own docs 🚧
+  - refactor server actions and add cron job 🚧
+  - Optimize performance 🚧
+
+
 - v0.14.1
-  - add tag filter 🚧
+  - add tag filter ✅
 
 
 - v0.14 add topics
   - For a period of time, we may focus on a specific topic, such as tailwindcss, state management or form. It is necessary to add topics for filtering ✅
-  - Optimize performance 🚧
-
-
 
 
 

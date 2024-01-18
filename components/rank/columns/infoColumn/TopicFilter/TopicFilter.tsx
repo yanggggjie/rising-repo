@@ -27,9 +27,11 @@ export default function TopicFilter({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger>
-        <Button variant="outline" onClick={() => {}}>
-          {selectedTopic}
-          <ChevronDownIcon className={'w-5 h-5'} />
+        <Button variant="outline" asChild={true} onClick={() => {}}>
+          <div>
+            {selectedTopic}
+            <ChevronDownIcon className={'w-5 h-5'} />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className={'w-[40rem]'}>

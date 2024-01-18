@@ -8,7 +8,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ChevronDownIcon } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import { Input } from '@/components/ui/input'
 
 interface Props {
   sortedTopicList: Array<[string, number]>
@@ -21,11 +22,16 @@ export default function TopicFilter({
   selectedTopic,
   onTopicClick,
 }: Props) {
-  const top100 = sortedTopicList.slice(0, 100)
+  const [searchText, setSearchText] = useState('')
+  const filteredTopicList = sortedTopicList.filter(([name, times]) => {
+    return name.includes(searchText)
+  })
+
+  const top100 = filteredTopicList.slice(0, 100)
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
+    <Popover open={isOpen} defaultOpen={true} onOpenChange={setIsOpen}>
       <PopoverTrigger>
         <Button variant="outline" asChild={true} onClick={() => {}}>
           <div>
@@ -34,11 +40,18 @@ export default function TopicFilter({
           </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={'w-[40rem]'}>
-        <div className={'space-x-2 space-y-2'}>
+      <PopoverContent className={'ml-10 w-[30rem] space-y-5'}>
+        <Input
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value)
+          }}
+          placeholder={'type to filter topic'}
+        ></Input>
+        <div className={clsx('w-full h-[30rem] overflow-auto space-y-2')}>
           <Badge
             variant="secondary"
-            className={'space-x-1 hover:outline'}
+            className={'space-x-1 mr-2 hover:outline'}
             onClick={() => {
               onTopicClick('all')
               setIsOpen(false)
@@ -51,7 +64,7 @@ export default function TopicFilter({
               <Badge
                 key={name}
                 variant="secondary"
-                className={'space-x-1 hover:outline'}
+                className={'space-x-1 hover:outline mr-2'}
                 onClick={() => {
                   onTopicClick(name)
                   setIsOpen(false)

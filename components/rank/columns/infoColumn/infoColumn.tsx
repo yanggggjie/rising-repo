@@ -9,6 +9,8 @@ import Description from '@/components/rank/columns/infoColumn/Description'
 import Topics from '@/components/rank/columns/infoColumn/Topics'
 import TopicFilter from '@/components/rank/columns/infoColumn/TopicFilter/TopicFilter'
 
+export type ISortedTopic = [string, number]
+
 export const infoColumn: ColumnDef<IRankItem> = {
   id: 'info',
   filterFn: (row, columnId, filterValue) => {
@@ -23,7 +25,7 @@ export const infoColumn: ColumnDef<IRankItem> = {
       return [...previousValue, ...currentValue.topics]
     }, [] as string[])
 
-    const sortedTopicList = _.sortBy(
+    const sortedTopicList: ISortedTopic[] = _.sortBy(
       _.toPairs(
         _.countBy(allTopics, (item) => {
           return item

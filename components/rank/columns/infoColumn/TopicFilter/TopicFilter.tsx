@@ -31,7 +31,7 @@ export default function TopicFilter({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <Popover open={isOpen} defaultOpen={true} onOpenChange={setIsOpen}>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger>
         <Button variant="outline" asChild={true} onClick={() => {}}>
           <div>
@@ -40,7 +40,7 @@ export default function TopicFilter({
           </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={'ml-10 w-[30rem] space-y-5'}>
+      <PopoverContent className={'ml-10 w-[30rem] space-y-2'}>
         <Input
           value={searchText}
           onChange={(e) => {
@@ -48,7 +48,9 @@ export default function TopicFilter({
           }}
           placeholder={'type to filter topic'}
         ></Input>
-        <div className={clsx('w-full h-[30rem] overflow-auto space-y-2')}>
+        <div
+          className={clsx('w-full px-0.5 h-[30rem] overflow-auto space-y-2')}
+        >
           <Badge
             variant="secondary"
             className={'space-x-1 mr-2 hover:outline'}

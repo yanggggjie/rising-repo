@@ -5,7 +5,7 @@ import { unstable_cache } from 'next/cache'
 export default unstable_cache(
   async function getARepo({ repoName }: { repoName: string }) {
     try {
-      const repo = await globalOfetch<IRepo>(`/repos/` + repoName, {})
+      const repo = await globalOfetch<IRepoInfo>(`/repos/` + repoName, {})
       if (repo.language === 'Jupyter Notebook') repo.language = 'Jupyter'
       return repo
     } catch (e) {
@@ -20,7 +20,7 @@ export default unstable_cache(
   },
 )
 
-export interface IRepo {
+export interface IRepoInfo {
   id: number
   node_id: string
   name: string

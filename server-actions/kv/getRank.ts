@@ -1,7 +1,7 @@
 'use server'
 import { kv } from '@vercel/kv'
 import { IDate } from '@/components/date/dateToDuring'
-import { IRepoInfo } from '@/server-actions/kv/setRank'
+import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
 import { unstable_cache } from 'next/cache'
 
 interface Props {
@@ -12,7 +12,7 @@ export default unstable_cache(
   async function getRank({ date }: Props) {
     try {
       const res = await kv.get(date)
-      return res as IRepoInfo[]
+      return res as IRankItemWithRepoInfo[]
     } catch (e) {
       console.log('e', e)
       return null

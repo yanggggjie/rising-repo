@@ -10,7 +10,7 @@ interface Props {
   date: IDate
 }
 
-export type IRepoInfo = IRankItem & {
+export type IRankItemWithRepoInfo = IRankItem & {
   language: string
   ownerAvatar: string
   ownerLogin: string
@@ -43,7 +43,7 @@ export default async function setRank({ date }: Props) {
         description: repo.description,
         createdAt: repo.created_at,
         topics: repo.topics,
-      } as IRepoInfo
+      } as IRankItemWithRepoInfo
     })
 
     const batchRepoInfoList = (await Promise.all(promiseList)).filter(

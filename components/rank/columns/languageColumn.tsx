@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { IRankItem } from '@/server-actions/kv/setRank'
 import * as React from 'react'
 import _ from 'lodash'
 import { clsx } from 'clsx'
@@ -10,8 +9,9 @@ import {
   SelectTrigger,
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
+import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
 
-export const languageColumn: ColumnDef<IRankItem> = {
+export const languageColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'language',
   size: 20,
   accessorKey: 'language',

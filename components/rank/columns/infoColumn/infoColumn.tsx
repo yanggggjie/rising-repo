@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { IRankItem } from '@/server-actions/kv/setRank'
 import { clsx } from 'clsx'
 import * as React from 'react'
 import _ from 'lodash'
@@ -8,10 +7,11 @@ import Title from '@/components/rank/columns/infoColumn/Title'
 import Description from '@/components/rank/columns/infoColumn/Description'
 import Topics from '@/components/rank/columns/infoColumn/Topics'
 import TopicFilter from '@/components/rank/columns/infoColumn/TopicFilter/TopicFilter'
+import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
 
 export type ISortedTopic = [string, number]
 
-export const infoColumn: ColumnDef<IRankItem> = {
+export const infoColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'info',
   filterFn: (row, columnId, filterValue) => {
     if (filterValue === 'all') return true

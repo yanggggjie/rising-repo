@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { IRankItem } from '@/server-actions/kv/setRank'
+import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
 import * as React from 'react'
 import dayjs from 'dayjs'
 import { clsx } from 'clsx'
@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
 
-export const createdAtColumn: ColumnDef<IRankItem> = {
+export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'createdAt',
   size: 20,
   accessorKey: 'createdAt',

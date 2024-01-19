@@ -3,9 +3,10 @@ import _ from 'lodash'
 import { clsx } from 'clsx'
 import { use } from 'react'
 import RankTable from '@/components/rank/RankTable'
-import { IRepo } from '@/server-actions/getARepo'
+import { IRepoInfo } from '@/server-actions/getARepo'
+import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
 interface Props {
-  rankPromise: PromiseLike<IRepo[]>
+  rankPromise: PromiseLike<IRankItemWithRepoInfo[]>
 }
 
 export default function DisplayRank({ rankPromise }: Props) {

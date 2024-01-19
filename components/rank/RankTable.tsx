@@ -17,11 +17,11 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import * as React from 'react'
-import { IRankItem } from '@/server-actions/kv/setRank'
 import { useRef } from 'react'
 import { columns } from '@/components/rank/columns/columns'
+import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
 interface Props {
-  data: IRankItem[]
+  data: IRankItemWithRepoInfo[]
 }
 
 export default function RankTable({ data }: Props) {

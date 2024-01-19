@@ -4,8 +4,10 @@
 
 ### roadmap
 - v0.15
-  - add deploy your own docs 🚧
-  - refactor server actions and add cron job 🚧
+  - add "deploy your own" docs 🚧
+  - refactor server actions ✅
+  - add lastUpdateTime ✅
+  - add cron job 🚧
   - Optimize performance 🚧
 
 

@@ -1,6 +1,7 @@
 'use server'
 import dayjs from 'dayjs'
 import { unstable_cache } from 'next/cache'
+import { BigqueryClient } from '@/server-actions/bigQuery/BigQuery'
 
 const { BigQuery } = require('@google-cloud/bigquery')
 
@@ -18,6 +19,12 @@ export interface IRankItem {
 
 export default unstable_cache(
   async function getRankList({ start, end, limit, offset }: Props) {
+    const credential = JSON.parse(
+      Buffer.from(process.env.GOOGLE_SERVICE_KEY, 'base64')
+        .toString()
+        .replace(/\n/g, ''),
+    )
+
     const dayQueryList: string[] = genDayQueryList(start, end)
     const query =
       `
@@ -38,12 +45,11 @@ ORDER BY
 LIMIT ${limit}
   `
     try {
-      const bigquery = new BigQuery()
       const options = {
         query: query,
         location: 'US',
       }
-      const [job] = await bigquery.createQueryJob(options)
+      const [job] = await BigqueryClient.createQueryJob(options)
       const [rows] = await job.getQueryResults()
       return rows as IRankItem[]
     } catch (e) {

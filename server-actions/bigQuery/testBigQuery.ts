@@ -1,8 +1,8 @@
 'use server'
-const { BigQuery } = require('@google-cloud/bigquery')
+
+import { BigqueryClient } from '@/server-actions/bigQuery/BigQueryClient'
 
 export default async function testBigQuery() {
-  const bigquery = new BigQuery()
   async function query() {
     const query = `SELECT repo.name AS repoName,
                           COUNT(*)  AS addedStars
@@ -33,7 +33,7 @@ LIMIT
       query: query,
       location: 'US',
     }
-    const [job] = await bigquery.createQueryJob(options)
+    const [job] = await BigqueryClient.createQueryJob(options)
     console.log(`Job ${job.id} started.`)
     const [rows] = await job.getQueryResults()
     console.log('rows', rows)

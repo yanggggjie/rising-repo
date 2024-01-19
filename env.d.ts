@@ -2,6 +2,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
     readonly ADMIN_TOKEN: string;
+readonly GOOGLE_SERVICE_KEY: string;
 readonly KV_REST_API_READ_ONLY_TOKEN: string;
 readonly KV_REST_API_TOKEN: string;
 readonly KV_REST_API_URL: string;

@@ -11,7 +11,7 @@ export default unstable_cache(
   async function getRankUpdateTime({ date }: Props) {
     try {
       const res = await kv.get(date + 'updateTime')
-      return res
+      return res as string
     } catch (e) {
       console.log('e', e)
       return null

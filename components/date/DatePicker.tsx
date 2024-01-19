@@ -7,13 +7,16 @@ import { RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { clsx } from 'clsx'
 import { dateToDuring } from '@/components/date/dateToDuring'
-interface Props {}
+import { ReactNode } from 'react'
+interface Props {
+  children: ReactNode
+}
 
-export default function DatePicker({}: Props) {
+export default function DatePicker({ children }: Props) {
   const [date, setDate] = useQueryState('date', dateParser)
 
   return (
-    <div>
+    <div className={'space-y-1'}>
       <RadioGroup
         defaultValue={date}
         className={clsx('space-x-5')}
@@ -33,6 +36,7 @@ export default function DatePicker({}: Props) {
           )
         })}
       </RadioGroup>
+      <div className={'text-xs'}>lastUpdateTime {children}</div>
     </div>
   )
 }

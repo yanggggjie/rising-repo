@@ -9,6 +9,8 @@ import { dateParser } from '@/components/date/dateParser'
 import { BulletList } from 'react-content-loader'
 import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
+import getRankUpdteTime from '@/server-actions/kv/getRankUpdteTime'
+import UpdateTime from '@/components/date/UpdateTime'
 interface Props {
   searchParams: any
 }
@@ -16,6 +18,7 @@ interface Props {
 export default function Page({ searchParams }: Props) {
   const date = dateParser.parseServerSide(searchParams.date) as IDate
   const rankPromise = getRank({ date })
+  const updateTimePromise = getRankUpdteTime({ date })
 
   const Fallback = (
     <div className={clsx('border-2 overflow-hidden')}>
@@ -25,9 +28,16 @@ export default function Page({ searchParams }: Props) {
   )
 
   return (
-    <div className={clsx('h-screen', 'flex flex-col gap-4', 'p-4')}>
+    <div className={clsx('h-screen', 'flex flex-col gap-1', 'p-4')}>
       <div className={clsx('flex flex-row items-center')}>
-        <DatePicker></DatePicker>
+        <DatePicker>
+          <Suspense fallback={<span>loading update time...</span>}>
+            <UpdateTime
+              // @ts-ignore
+              updateTimePromise={updateTimePromise}
+            ></UpdateTime>
+          </Suspense>
+        </DatePicker>
         <div className={clsx('grow')}></div>
         <Link
           target={'_blank'}

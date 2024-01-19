@@ -58,7 +58,7 @@ export default async function setRank({ date }: Props) {
 
   const res = await Promise.all([
     kv.set(date, repoInfoList),
-    kv.set(date + 'updateTime', dayjs().format('YYYY-MM-DD')),
+    kv.set(date + 'updateTime', dayjs().format('YYYY-MM-DD HH:mm')),
   ])
   console.log(`set ${date} `, res)
 }

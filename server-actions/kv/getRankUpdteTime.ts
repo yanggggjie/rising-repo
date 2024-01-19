@@ -2,17 +2,16 @@
 import { kv } from '@vercel/kv'
 import { memoize } from 'nextjs-better-unstable-cache'
 import { IDate } from '@/components/date/dateToDuring'
-import { IRepoInfo } from '@/server-actions/kv/setRank'
 
 interface Props {
   date: IDate
 }
 
 export default memoize(
-  async function getRank({ date }: Props) {
+  async function getRankUpdateTime({ date }: Props) {
     try {
-      const res = await kv.get(date)
-      return res as IRepoInfo[]
+      const res = await kv.get(date + 'updateTime')
+      return res
     } catch (e) {
       console.log('e', e)
       return null

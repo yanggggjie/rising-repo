@@ -1,5 +1,6 @@
 'use server'
 import dayjs from 'dayjs'
+import { memoize } from 'nextjs-better-unstable-cache'
 
 const { BigQuery } = require('@google-cloud/bigquery')
 
@@ -10,47 +11,25 @@ interface Props {
   offset: number
 }
 
-function genDayQuery(day: string) {
-  return `
-  SELECT
-    repo.name AS repoName,
-    COUNT(*) AS addedStarsTemp
-  FROM
-      \`githubarchive.day.${day}\`
-  WHERE
-      type = 'WatchEvent'
-  GROUP BY
-      repoName
-            `
+export interface IRankItem {
+  repoName: string
+  addedStars: number
 }
 
-export default async function getRankList({
-  start,
-  end,
-  limit,
-  offset,
-}: Props) {
-  let startDay = dayjs(start)
-  const endDay = dayjs(end)
-  const dayQueryList: string[] = []
-  // include endDay
-  while (!startDay.isAfter(endDay)) {
-    let day = startDay.format('YYYYMMDD')
-    dayQueryList.push(genDayQuery(day))
-    startDay = startDay.add(1, 'day')
-  }
-
-  const query =
-    `
+export default memoize(
+  async function getRankList({ start, end, limit, offset }: Props) {
+    const dayQueryList: string[] = genDayQueryList(start, end)
+    const query =
+      `
 SELECT
     repoName,
     SUM(addedStarsTemp) AS addedStars
  FROM (
     ` +
-    dayQueryList.join(`
+      dayQueryList.join(`
   UNION ALL
     `) +
-    `
+      `
 )
 GROUP BY
   repoName
@@ -58,20 +37,48 @@ ORDER BY
   addedStars DESC
 LIMIT ${limit}
   `
-  console.log('query', query)
-
-  try {
-    const bigquery = new BigQuery()
-    const options = {
-      query: query,
-      location: 'US',
+    try {
+      const bigquery = new BigQuery()
+      const options = {
+        query: query,
+        location: 'US',
+      }
+      const [job] = await bigquery.createQueryJob(options)
+      const [rows] = await job.getQueryResults()
+      return rows as IRankItem[]
+    } catch (e) {
+      console.log('error in getRankList', e)
+      return []
     }
-    const [job] = await bigquery.createQueryJob(options)
-    const [rows] = await job.getQueryResults()
-    console.log('rows', rows)
-    return rows as { repoName: string; addedStars: number }[]
-  } catch (e) {
-    console.log('error in getRankList', e)
-    return []
+  },
+  {
+    duration: 24 * 3600,
+    persist: true,
+    log: ['datacache'],
+    revalidateTags: ['getRank'],
+  },
+)
+
+function genDayQueryList(start: string, end: string) {
+  const dayQueryList: string[] = []
+
+  let startDay = dayjs(start)
+  const endDay = dayjs(end)
+
+  while (!startDay.isAfter(endDay)) {
+    const dayQuery = `
+  SELECT
+    repo.name AS repoName,
+    COUNT(*) AS addedStarsTemp
+  FROM
+      \`githubarchive.day.${startDay.format('YYYYMMDD')}\`
+  WHERE
+      type = 'WatchEvent'
+  GROUP BY
+      repoName
+    `
+    dayQueryList.push(dayQuery)
+    startDay = startDay.add(1, 'day')
   }
+  return dayQueryList
 }

@@ -5,8 +5,9 @@ import { memoize } from 'nextjs-better-unstable-cache'
 export default memoize(
   async function getARepo({ repoName }: { repoName: string }) {
     try {
-      const res = await globalOfetch<IRepo>(`/repos/` + repoName, {})
-      return res
+      const repo = await globalOfetch<IRepo>(`/repos/` + repoName, {})
+      if (repo.language === 'Jupyter Notebook') repo.language = 'Jupyter'
+      return repo
     } catch (e) {
       console.log('error in getARepo', e)
       return null

@@ -1,6 +1,6 @@
 'use server'
 import dayjs from 'dayjs'
-import { memoize } from 'nextjs-better-unstable-cache'
+import { unstable_cache } from 'next/cache'
 
 const { BigQuery } = require('@google-cloud/bigquery')
 
@@ -16,7 +16,7 @@ export interface IRankItem {
   addedStars: number
 }
 
-export default memoize(
+export default unstable_cache(
   async function getRankList({ start, end, limit, offset }: Props) {
     const dayQueryList: string[] = genDayQueryList(start, end)
     const query =
@@ -51,11 +51,10 @@ LIMIT ${limit}
       return []
     }
   },
+  ['getRankList'],
   {
-    duration: 24 * 3600,
-    persist: true,
-    log: ['datacache'],
-    revalidateTags: ['getRank'],
+    revalidate: 3600 * 24,
+    tags: ['getRankList'],
   },
 )
 

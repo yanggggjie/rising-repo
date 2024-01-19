@@ -1,13 +1,13 @@
 'use server'
 import { kv } from '@vercel/kv'
-import { memoize } from 'nextjs-better-unstable-cache'
 import { IDate } from '@/components/date/dateToDuring'
+import { unstable_cache } from 'next/cache'
 
 interface Props {
   date: IDate
 }
 
-export default memoize(
+export default unstable_cache(
   async function getRankUpdateTime({ date }: Props) {
     try {
       const res = await kv.get(date + 'updateTime')
@@ -17,10 +17,9 @@ export default memoize(
       return null
     }
   },
+  ['getRankUpdateTime'],
   {
-    duration: 24 * 3600,
-    persist: true,
-    log: ['datacache'],
-    revalidateTags: ['getRank'],
+    revalidate: 3600 * 24,
+    tags: ['getRank'],
   },
 )

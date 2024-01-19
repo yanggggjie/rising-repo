@@ -1,8 +1,8 @@
 'use server'
 import { globalOfetch } from '@/server-actions/globalOfetch'
-import { memoize } from 'nextjs-better-unstable-cache'
+import { unstable_cache } from 'next/cache'
 
-export default memoize(
+export default unstable_cache(
   async function getARepo({ repoName }: { repoName: string }) {
     try {
       const repo = await globalOfetch<IRepo>(`/repos/` + repoName, {})
@@ -13,11 +13,10 @@ export default memoize(
       return null
     }
   },
+  ['getARepo'],
   {
-    persist: true,
-    revalidateTags: ['getARepo'],
-    duration: 24 * 3600,
-    log: ['verbose'],
+    revalidate: 3600 * 24,
+    tags: ['getARepo'],
   },
 )
 

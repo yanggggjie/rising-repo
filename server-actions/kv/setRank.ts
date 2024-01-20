@@ -55,12 +55,14 @@ export default async function setRank({ date }: Props) {
     // @ts-ignore already filter null
     repoInfoList.push(...batchRepoInfoList)
   }
-
-  const res = await Promise.all([
-    kv.set(date, repoInfoList),
-    kv.set(date + 'updateTime', dayjs().format('YYYY-MM-DD HH:mm')),
-  ])
-  console.log(`set ${date} `, res)
+  if (repoInfoList.length > 0) {
+    const res = await Promise.all([
+      kv.set(date, repoInfoList),
+      kv.set(date + 'updateTime', dayjs().format('YYYY-MM-DD HH:mm')),
+    ])
+    console.log(`set ${date} `, res)
+  }
+  return repoInfoList
 }
 
 function sleep(delay: number) {

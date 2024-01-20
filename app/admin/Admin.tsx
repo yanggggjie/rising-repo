@@ -16,6 +16,7 @@ export default function Admin({}: Props) {
     <div>
       <button
         onClick={async () => {
+          console.log('start')
           const date: IDate = 'yesterday'
           const { start, end } = dateToDuring[date]
           const res = await getRankList({
@@ -33,8 +34,10 @@ export default function Admin({}: Props) {
         {dateList.map((date) => (
           <div
             key={date}
-            onClick={() => {
-              setRank({ date })
+            onClick={async () => {
+              console.log('start')
+              const res = await setRank({ date })
+              console.log('res', res)
             }}
           >
             setRank {date}
@@ -47,6 +50,7 @@ export default function Admin({}: Props) {
           <div
             key={date}
             onClick={async () => {
+              console.log('start')
               const res = await getRank({ date })
               console.log('res', res)
             }}
@@ -58,6 +62,7 @@ export default function Admin({}: Props) {
       <hr />
       <button
         onClick={async () => {
+          console.log('start')
           const res = await getRateLimit()
           console.log('res', res)
         }}
@@ -66,16 +71,20 @@ export default function Admin({}: Props) {
       </button>
       <hr />
       <button
-        onClick={() => {
-          revalidateRank()
+        onClick={async () => {
+          console.log('start')
+          const res = await revalidateRank()
+          console.log('res', res)
         }}
       >
         revalidateRank
       </button>
       <hr />
       <button
-        onClick={() => {
-          testBigQuery()
+        onClick={async () => {
+          console.log('start')
+          const res = await testBigQuery()
+          console.log('res', res)
         }}
       >
         big query

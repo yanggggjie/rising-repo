@@ -32,7 +32,7 @@ export default async function setRank({ date }: Props) {
   const repoInfoList = []
   const batchSize = 100
   for (let i = 0; i < rankList.length; i += batchSize) {
-    const promiseList = rankList.slice(0, batchSize).map(async (item) => {
+    const promiseList = rankList.slice(i, i + batchSize).map(async (item) => {
       const repo = await getARepo({ repoName: item.repoName })
       if (!repo) return null
       return {

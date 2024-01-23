@@ -23,7 +23,7 @@ export default function Admin({}: Props) {
             start,
             end,
             offset: 0,
-            limit: 10,
+            limit: 1000,
           })
           console.log('res', res)
         }}

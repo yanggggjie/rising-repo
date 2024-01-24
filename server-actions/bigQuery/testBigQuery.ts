@@ -10,7 +10,7 @@ export default async function testBigQuery() {
                    WHERE type = 'WatchEvent'
                    GROUP BY repoName
                    ORDER BY addedStars
-                     DESC LIMIT 10
+                     DESC LIMIT 10000
     `
 
     const options = {
@@ -26,3 +26,16 @@ export default async function testBigQuery() {
     rows: rows,
   }
 }
+
+;`
+SELECT
+
+repo.name AS repoName,
+COUNT(*)  AS addedStars
+
+FROM \`githubarchive.day.20240111\`
+WHERE type = 'WatchEvent'
+GROUP BY repoName
+ORDER BY addedStars
+DESC LIMIT 10000
+`

@@ -8,6 +8,7 @@ import { dateToDuring, IDate } from '@/components/date/dateToDuring'
 import revalidateRank from '@/server-actions/kv/revalidateRank'
 import getRankList from '@/server-actions/getRankList'
 import testBigQuery from '@/server-actions/bigQuery/testBigQuery'
+import testGraphql from '@/server-actions/graphql/testGraphql'
 
 interface Props {}
 export default function Admin({}: Props) {
@@ -88,6 +89,15 @@ export default function Admin({}: Props) {
         }}
       >
         big query
+      </button>
+      <hr />
+      <button
+        onClick={async () => {
+          const res = await testGraphql()
+          console.log('res', res)
+        }}
+      >
+        test graphql
       </button>
     </div>
   )

@@ -3,12 +3,15 @@
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
 ### roadmap
+- **v0.2**
+  - **FRESH**: Focused on discovering the latest repos 🚧
+  - **TOPIC**: improve topic by merging topics with similar meanings 🚧
+  - **Performance** 🚧
+
+
 - v0.15
-  - add "deploy your own" docs 🚧
   - refactor server actions ✅
   - add lastUpdateTime ✅
-  - add cron job 🚧
-  - Optimize performance 🚧
 
 
 - v0.14.1

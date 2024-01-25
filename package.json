@@ -28,8 +28,6 @@
     "class-variance-authority": "^0.7.0",
     "cookies-next": "^4.1.0",
     "dayjs": "^1.11.10",
-    "graphql": "^16.8.1",
-    "graphql-request": "^6.1.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.303.0",
     "next": "14.0.4",

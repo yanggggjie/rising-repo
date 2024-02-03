@@ -1,12 +1,19 @@
 'use client'
-import _ from 'lodash'
-import { clsx } from 'clsx'
-import dayjs from 'dayjs'
-import getDate from '@/server-actions/testCache/getDate'
-import revalidateDate from '@/server-actions/testCache/revalidateDate'
-import getDate1 from '@/server-actions/testCache/getDate1'
+import { testAction } from '@/server-actions/test/testAction'
+
 interface Props {}
 
 export default function Page({}: Props) {
-  return <div>in test</div>
+  return (
+    <div>
+      in test
+      <button
+        onClick={() => {
+          testAction()
+        }}
+      >
+        click
+      </button>
+    </div>
+  )
 }

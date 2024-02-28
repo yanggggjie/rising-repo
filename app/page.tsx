@@ -1,24 +1,17 @@
-import _ from 'lodash'
 import { clsx } from 'clsx'
 import getRank from '@/server-actions/kv/getRank'
 import DisplayRank from '@/components/rank/DisplayRank'
 import { Suspense } from 'react'
-import { IDate } from '@/components/date/dateToDuring'
-import DatePicker from '@/components/date/DatePicker'
-import { dateParser } from '@/components/date/dateParser'
 import { BulletList } from 'react-content-loader'
 import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
 import getRankUpdteTime from '@/server-actions/kv/getRankUpdteTime'
-import UpdateTime from '@/components/date/UpdateTime'
-interface Props {
-  searchParams: any
-}
+import UpdateTime from '@/components/UpdateTime'
+interface Props {}
 
-export default function Page({ searchParams }: Props) {
-  const date = dateParser.parseServerSide(searchParams.date) as IDate
-  const rankPromise = getRank({ date })
-  const updateTimePromise = getRankUpdteTime({ date })
+export default function Page({}: Props) {
+  const rankPromise = getRank()
+  const updateTimePromise = getRankUpdteTime()
 
   const Fallback = (
     <div className={clsx('border-2 overflow-hidden')}>
@@ -30,14 +23,12 @@ export default function Page({ searchParams }: Props) {
   return (
     <div className={clsx('h-screen', 'flex flex-col gap-1', 'p-4')}>
       <div className={clsx('flex flex-row items-center')}>
-        <DatePicker>
-          <Suspense fallback={<span>loading update time...</span>}>
-            <UpdateTime
-              // @ts-ignore
-              updateTimePromise={updateTimePromise}
-            ></UpdateTime>
-          </Suspense>
-        </DatePicker>
+        <Suspense fallback={<span>loading update time...</span>}>
+          <UpdateTime
+            // @ts-ignore
+            updateTimePromise={updateTimePromise}
+          ></UpdateTime>
+        </Suspense>
         <div className={clsx('grow')}></div>
         <Link
           target={'_blank'}

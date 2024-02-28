@@ -1,16 +1,11 @@
 'use server'
 import { kv } from '@vercel/kv'
-import { IDate } from '@/components/date/dateToDuring'
 import { unstable_cache } from 'next/cache'
 
-interface Props {
-  date: IDate
-}
-
 export default unstable_cache(
-  async function getRankUpdateTime({ date }: Props) {
+  async function getRankUpdateTime() {
     try {
-      const res = await kv.get(date + 'updateTime')
+      const res = await kv.get('updateTime')
       return res as string
     } catch (e) {
       console.log('e', e)

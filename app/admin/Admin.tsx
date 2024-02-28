@@ -1,24 +1,19 @@
 'use client'
-import _ from 'lodash'
-import { clsx } from 'clsx'
 import setRank from '@/server-actions/kv/setRank'
 import getRank from '@/server-actions/kv/getRank'
 import getRateLimit from '@/server-actions/getRateLimit'
-import { dateToDuring, IDate } from '@/components/date/dateToDuring'
 import revalidateRank from '@/server-actions/kv/revalidateRank'
 import getRankList from '@/server-actions/getRankList'
 import testBigQuery from '@/server-actions/bigQuery/testBigQuery'
+import { getDate } from '@/lib/util'
 
 interface Props {}
 export default function Admin({}: Props) {
-  const dateList: IDate[] = ['yesterday', 'lastWeek', 'lastMonth']
   return (
     <div>
       <button
         onClick={async () => {
-          console.log('start')
-          const date: IDate = 'yesterday'
-          const { start, end } = dateToDuring[date]
+          const { start, end } = getDate()
           const res = await getRankList({
             start,
             end,
@@ -31,33 +26,27 @@ export default function Admin({}: Props) {
         get rank list
       </button>
       <div className={''}>
-        {dateList.map((date) => (
-          <div
-            key={date}
-            onClick={async () => {
-              console.log('start')
-              const res = await setRank({ date })
-              console.log('res', res)
-            }}
-          >
-            setRank {date}
-          </div>
-        ))}
+        <button
+          onClick={async () => {
+            console.log('start')
+            const res = await setRank()
+            console.log('res', res)
+          }}
+        >
+          set rank
+        </button>
       </div>
       <hr />
       <div className={''}>
-        {dateList.map((date) => (
-          <div
-            key={date}
-            onClick={async () => {
-              console.log('start')
-              const res = await getRank({ date })
-              console.log('res', res)
-            }}
-          >
-            get {date}
-          </div>
-        ))}
+        <button
+          onClick={async () => {
+            console.log('start')
+            const res = await getRank()
+            console.log('res', res)
+          }}
+        >
+          get rank
+        </button>
       </div>
       <hr />
       <button

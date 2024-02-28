@@ -2,13 +2,9 @@
 
 import getRankList, { IRankItem } from '@/server-actions/getRankList'
 import getARepo from '@/server-actions/getARepo'
-import { dateToDuring, IDate } from '@/components/date/dateToDuring'
 import { kv } from '@vercel/kv'
 import dayjs from 'dayjs'
-
-interface Props {
-  date: IDate
-}
+import { getDate } from '@/lib/util'
 
 export type IRankItemWithRepoInfo = IRankItem & {
   language: string
@@ -19,8 +15,8 @@ export type IRankItemWithRepoInfo = IRankItem & {
   topics: string[]
 }
 
-export default async function setRank({ date }: Props) {
-  const { start, end } = dateToDuring[date]
+export default async function setRank() {
+  const { start, end } = getDate()
 
   const rankList = await getRankList({
     start,
@@ -57,18 +53,10 @@ export default async function setRank({ date }: Props) {
   }
   if (repoInfoList.length > 0) {
     const res = await Promise.all([
-      kv.set(date, repoInfoList),
-      kv.set(date + 'updateTime', dayjs().format('YYYY-MM-DD HH:mm')),
+      kv.set('repoInfoList', repoInfoList),
+      kv.set('updateTime', dayjs().format('YYYY-MM-DD HH:mm')),
     ])
-    console.log(`set ${date} `, res)
+    console.log(`set`, res)
   }
   return repoInfoList
-}
-
-function sleep(delay: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('')
-    }, delay)
-  })
 }

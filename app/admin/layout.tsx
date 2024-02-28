@@ -1,5 +1,3 @@
-import _ from 'lodash'
-import { clsx } from 'clsx'
 interface Props {
   children: React.ReactNode
 }

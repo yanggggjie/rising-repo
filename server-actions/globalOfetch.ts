@@ -12,7 +12,6 @@ const globalOfetch = ofetch.create({
       Authorization: `Bearer ${process.env.MY_GITHUB_TOKEN}`,
     }
   },
-  // timeout: 2000,
 })
 
 export { globalOfetch }

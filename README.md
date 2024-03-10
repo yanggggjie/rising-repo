@@ -4,9 +4,7 @@
 
 ### roadmap
 - **v0.2**
-  - **FRESH**: Focused on discovering the latest repos 🚧
-  - **TOPIC**: improve topic by merging topics with similar meanings 🚧
-  - **Performance** 🚧
+  - move to SSG, use next static export and github actions build for every day 🚧
 
 
 - v0.15

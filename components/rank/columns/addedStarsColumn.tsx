@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { clsx } from 'clsx'
 import * as React from 'react'
-import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
+import { IRankItemWithRepoInfo } from '@/app/api/getRank/getRank'
 
 export const addedStarsColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'addedStars',

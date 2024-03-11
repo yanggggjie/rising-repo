@@ -7,7 +7,7 @@ import Title from '@/components/rank/columns/infoColumn/Title'
 import Description from '@/components/rank/columns/infoColumn/Description'
 import Topics from '@/components/rank/columns/infoColumn/Topics'
 import TopicFilter from '@/components/rank/columns/infoColumn/TopicFilter/TopicFilter'
-import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
+import { IRankItemWithRepoInfo } from '@/app/api/getRank/getRank'
 
 export type ISortedTopic = [string, number]
 

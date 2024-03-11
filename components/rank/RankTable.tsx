@@ -19,7 +19,7 @@ import {
 import * as React from 'react'
 import { useRef } from 'react'
 import { columns } from '@/components/rank/columns/columns'
-import { IRankItemWithRepoInfo } from '@/server-actions/kv/setRank'
+import { IRankItemWithRepoInfo } from '@/app/api/getRank/getRank'
 interface Props {
   data: IRankItemWithRepoInfo[]
 }

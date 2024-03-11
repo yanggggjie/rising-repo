@@ -1,14 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
-  reactStrictMode: false,
+  output: 'export',
+
+  basePath: '/rising-repo',
+
+  images: {
+    unoptimized: true,
+  },
+
   logging: {
     fetches: {
       fullUrl: false,
     },
   },
-  experimental: {
-    // windowHistorySupport: true,
-  },
+  experimental: {},
 }
 module.exports = nextConfig

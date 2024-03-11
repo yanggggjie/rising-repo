@@ -4,8 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "deploy": "vercel deploy",
-    "deploy(prebuild)": "vercel build && vercel deploy --prebuilt",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",

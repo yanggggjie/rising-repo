@@ -73,3 +73,19 @@
   - Shorten the time of switching date button and add loader
     - add loader ✅
   - vercel Real Experience Score increased from 53 to 79 🚀
+
+
+## build your own
+
+Configure GitHub Repository
+Next you need to configure Github for automated deployments via GitHub Actions.
+
+Enable GitHub Pages
+The following settings use the Github Action Deploy Pages to deploy. I prefer this workflow because you don't need to generate SSH keys or use a personal access token.
+
+Go to your repository's Settings tab
+Click "Pages" in the sidebar
+Under "Build and Deployment", select "GitHub Actions" as the source:
+screenshot of github pages settings
+
+[](https://private-user-images.githubusercontent.com/200280/246856949-a5f757c3-f515-4ca2-aadf-d2979c2c3bf5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAwODEzMDAsIm5iZiI6MTcxMDA4MTAwMCwicGF0aCI6Ii8yMDAyODAvMjQ2ODU2OTQ5LWE1Zjc1N2MzLWY1MTUtNGNhMi1hYWRmLWQyOTc5YzJjM2JmNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMFQxNDMwMDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01Y2U0NjIwMmQwOWVkOWVkMWNjYWFkYzZhMjNiNDFmMWIyNTc4ODBlZjhhMzhhZDlkYzljYTQ4MTRjMDM1YTc0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Vla1Do1DC9XeFjOTmcZqvo3yFDatknKJQQctM04_QCs)

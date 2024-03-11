@@ -1,5 +1,5 @@
 'use client'
-import { testAction } from '@/server-actions/test/testAction'
+import { testAction } from '@/server-actions/test/route'
 
 interface Props {}
 

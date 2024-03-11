@@ -1,10 +1,5 @@
 'use client'
-import setRank from '@/server-actions/kv/setRank'
-import getRank from '@/server-actions/kv/getRank'
-import getRateLimit from '@/server-actions/getRateLimit'
-import revalidateRank from '@/server-actions/kv/revalidateRank'
-import getRankList from '@/server-actions/getRankList'
-import testBigQuery from '@/server-actions/bigQuery/testBigQuery'
+
 import { getDate } from '@/lib/util'
 
 interface Props {}

@@ -1,7 +1,5 @@
-'use server'
 import dayjs from 'dayjs'
-import { unstable_cache } from 'next/cache'
-import { BigqueryClient } from '@/server-actions/bigQuery/BigQueryClient'
+import { BigqueryClient } from '@/app/api/getRank/BigQueryClient'
 
 interface Props {
   start: string
@@ -15,20 +13,24 @@ export interface IRankItem {
   addedStars: number
 }
 
-export default unstable_cache(
-  async function getRankList({ start, end, limit, offset }: Props) {
-    const dayQueryList: string[] = genDayQueryList(start, end)
-    const query =
-      `
+export default async function getRankList({
+  start,
+  end,
+  limit,
+  offset,
+}: Props) {
+  const dayQueryList: string[] = genDayQueryList(start, end)
+  const query =
+    `
 SELECT
     repoName,
     SUM(addedStarsTemp) AS addedStars
  FROM (
     ` +
-      dayQueryList.join(`
+    dayQueryList.join(`
   UNION ALL
     `) +
-      `
+    `
 )
 GROUP BY
   repoName
@@ -36,25 +38,19 @@ ORDER BY
   addedStars DESC
 LIMIT ${limit}
   `
-    try {
-      const options = {
-        query: query,
-        location: 'US',
-      }
-      const [job] = await BigqueryClient.createQueryJob(options)
-      const [rows] = await job.getQueryResults()
-      return rows as IRankItem[]
-    } catch (e) {
-      console.log('error in getRankList', e)
-      return []
+  try {
+    const options = {
+      query: query,
+      location: 'US',
     }
-  },
-  ['getRankList'],
-  {
-    revalidate: 3600 * 24,
-    tags: ['getRankList'],
-  },
-)
+    const [job] = await BigqueryClient.createQueryJob(options)
+    const [rows] = await job.getQueryResults()
+    return rows as IRankItem[]
+  } catch (e) {
+    console.log('error in getRankList', e)
+    return []
+  }
+}
 
 function genDayQueryList(start: string, end: string) {
   const dayQueryList: string[] = []

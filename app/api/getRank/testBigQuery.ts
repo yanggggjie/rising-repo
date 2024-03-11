@@ -1,6 +1,6 @@
 'use server'
 
-import { BigqueryClient } from '@/server-actions/bigQuery/BigQueryClient'
+import { BigqueryClient } from '@/app/api/getRank/BigQueryClient'
 
 export default async function testBigQuery() {
   async function query() {

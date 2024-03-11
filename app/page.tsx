@@ -1,17 +1,28 @@
 import { clsx } from 'clsx'
-import getRank from '@/server-actions/kv/getRank'
 import DisplayRank from '@/components/rank/DisplayRank'
 import { Suspense } from 'react'
 import { BulletList } from 'react-content-loader'
 import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
-import getRankUpdteTime from '@/server-actions/kv/getRankUpdteTime'
 import UpdateTime from '@/components/UpdateTime'
+import axios from 'axios'
 interface Props {}
 
+async function getRank() {
+  try {
+    const res = await axios.get('http://localhost:3000/rising-repo/api/getRank')
+    return res.data
+  } catch (e) {
+    console.log('error in getRank')
+    return []
+  }
+}
+async function getRankUpdateTime() {
+  return '2024年03月11日'
+}
 export default function Page({}: Props) {
   const rankPromise = getRank()
-  const updateTimePromise = getRankUpdteTime()
+  const updateTimePromise = getRankUpdateTime()
 
   const Fallback = (
     <div className={clsx('border-2 overflow-hidden')}>

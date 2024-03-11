@@ -1,24 +1,15 @@
-'use server'
-import { globalOfetch } from '@/server-actions/globalOfetch'
-import { unstable_cache } from 'next/cache'
+import { globalOfetch } from '@/app/api/globalOfetch'
 
-export default unstable_cache(
-  async function getARepo({ repoName }: { repoName: string }) {
-    try {
-      const repo = await globalOfetch<IRepoInfo>(`/repos/` + repoName, {})
-      if (repo.language === 'Jupyter Notebook') repo.language = 'Jupyter'
-      return repo
-    } catch (e) {
-      console.log('error in getARepo', e)
-      return null
-    }
-  },
-  ['getARepo'],
-  {
-    revalidate: 3600 * 24,
-    tags: ['getARepo'],
-  },
-)
+export default async function getARepo({ repoName }: { repoName: string }) {
+  try {
+    const repo = await globalOfetch<IRepoInfo>(`/repos/` + repoName, {})
+    if (repo.language === 'Jupyter Notebook') repo.language = 'Jupyter'
+    return repo
+  } catch (e) {
+    console.log('error in getARepo', e)
+    return null
+  }
+}
 
 export interface IRepoInfo {
   id: number

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { BigqueryClient } from '@/app/api/getRank/BigQueryClient'
+import { BigqueryClient } from '@/lib/getRank/BigQueryClient'
 
 interface Props {
   start: string

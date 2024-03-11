@@ -1,4 +1,4 @@
-import { globalOfetch } from '@/app/api/globalOfetch'
+import { globalOfetch } from '@/lib/globalOfetch'
 
 export default async function getARepo({ repoName }: { repoName: string }) {
   try {

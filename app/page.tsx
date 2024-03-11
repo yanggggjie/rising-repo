@@ -2,21 +2,11 @@ import { clsx } from 'clsx'
 import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
 import UpdateTime from '@/components/UpdateTime'
-import axios from 'axios'
 import dayjs from 'dayjs'
 import RankTable from '@/components/rank/RankTable'
+import getRank from '@/lib/getRank/getRank'
 interface Props {}
 
-async function getRank() {
-  try {
-    const res = await axios.get('http://localhost:3000/rising-repo/api/getRank')
-    console.log('rank', res)
-    return res.data
-  } catch (e) {
-    console.log('error in getRank')
-    return []
-  }
-}
 export default async function Page({}: Props) {
   const rank = await getRank()
   const updateTime = dayjs().format('YYYY-MM-DD')

@@ -1,4 +1,3 @@
-'use server'
 import { ofetch } from 'ofetch'
 
 const globalOfetch = ofetch.create({

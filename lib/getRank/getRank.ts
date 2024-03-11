@@ -1,6 +1,6 @@
 import { getDate } from '@/lib/util'
-import getRankList, { IRankItem } from '@/app/api/getRank/getRankList'
-import getARepo from '@/app/api/getRank/getARepo'
+import getRankList, { IRankItem } from '@/lib/getRank/getRankList'
+import getARepo from '@/lib/getRank/getARepo'
 
 export type IRankItemWithRepoInfo = IRankItem & {
   language: string
@@ -17,7 +17,7 @@ export default async function getRank() {
   const rankList = await getRankList({
     start,
     end,
-    limit: 10,
+    limit: 1000,
     offset: 0,
   })
 

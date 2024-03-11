@@ -9,7 +9,7 @@ import {
   SelectTrigger,
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
-import { IRankItemWithRepoInfo } from '@/app/api/getRank/getRank'
+import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
 
 export const languageColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'language',

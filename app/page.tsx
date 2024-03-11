@@ -10,6 +10,7 @@ interface Props {}
 async function getRank() {
   try {
     const res = await axios.get('http://localhost:3000/rising-repo/api/getRank')
+    console.log('rank', res)
     return res.data
   } catch (e) {
     console.log('error in getRank')

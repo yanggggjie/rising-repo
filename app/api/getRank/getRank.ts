@@ -21,8 +21,6 @@ export default async function getRank() {
     offset: 0,
   })
 
-  console.log('rankList', rankList)
-
   const repoInfoList = []
   const batchSize = 100
 

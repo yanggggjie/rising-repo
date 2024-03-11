@@ -1,4 +1,3 @@
-import { use } from 'react'
 interface Props {
   updateTime: string
 }

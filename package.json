@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
     "start": "next start",
     "lint": "next lint"
   },
@@ -16,11 +16,9 @@
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-table": "^8.11.2",
-    "@tanstack/react-virtual": "^3.0.1",
     "@vercel/kv": "^1.0.1",
     "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
-    "cookies-next": "^4.1.0",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
     "lucide-react": "^0.303.0",

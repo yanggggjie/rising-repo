@@ -1,11 +1,10 @@
 import { clsx } from 'clsx'
-import DisplayRank from '@/components/rank/DisplayRank'
-import { Suspense } from 'react'
-import { BulletList } from 'react-content-loader'
 import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
 import UpdateTime from '@/components/UpdateTime'
 import axios from 'axios'
+import dayjs from 'dayjs'
+import RankTable from '@/components/rank/RankTable'
 interface Props {}
 
 async function getRank() {
@@ -17,29 +16,14 @@ async function getRank() {
     return []
   }
 }
-async function getRankUpdateTime() {
-  return '2024年03月11日'
-}
-export default function Page({}: Props) {
-  const rankPromise = getRank()
-  const updateTimePromise = getRankUpdateTime()
-
-  const Fallback = (
-    <div className={clsx('border-2 overflow-hidden')}>
-      <BulletList />
-      <BulletList />
-    </div>
-  )
+export default async function Page({}: Props) {
+  const rank = await getRank()
+  const updateTime = dayjs().format('YYYY-MM-DD')
 
   return (
     <div className={clsx('h-screen', 'flex flex-col gap-1', 'p-4')}>
       <div className={clsx('flex flex-row items-center')}>
-        <Suspense fallback={<span>loading update time...</span>}>
-          <UpdateTime
-            // @ts-ignore
-            updateTimePromise={updateTimePromise}
-          ></UpdateTime>
-        </Suspense>
+        <UpdateTime updateTime={updateTime}></UpdateTime>
         <div className={clsx('grow')}></div>
         <Link
           target={'_blank'}
@@ -49,12 +33,7 @@ export default function Page({}: Props) {
         </Link>
       </div>
       <div className={clsx('overflow-auto border-2')}>
-        <Suspense fallback={Fallback}>
-          <DisplayRank
-            // @ts-ignore
-            rankPromise={rankPromise}
-          ></DisplayRank>
-        </Suspense>
+        <RankTable data={rank}></RankTable>{' '}
       </div>
     </div>
   )

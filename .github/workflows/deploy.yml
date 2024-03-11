@@ -37,6 +37,9 @@ jobs:
 
       - name: Build the project with pnpm
         run: pnpm run build
+        env:
+          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -3,7 +3,6 @@
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
 
-
 ### build your own local
 Add a local .env file
 
@@ -52,12 +51,15 @@ Enable GitHub Pages
 
 
 Add Secret
+
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/secret-setting.png)
 
 To deploy
+
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/to-deploy.png)
 
 Deploy result
+
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/deploy-result.png)
 
 

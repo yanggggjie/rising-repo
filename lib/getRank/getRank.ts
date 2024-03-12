@@ -21,32 +21,42 @@ export default async function getRank() {
     offset: 0,
   })
 
-  const repoInfoList = []
-  const batchSize = 100
+  const repoInfoList: IRankItemWithRepoInfo[] = []
+  const batchSize = 80
 
   for (let i = 0; i < rankList.length; i += batchSize) {
     const promiseList = rankList.slice(i, i + batchSize).map(async (item) => {
       const repo = await getARepo({ repoName: item.repoName })
       if (!repo) return null
       return {
-        ...item,
+        repoName: item.repoName,
+        addedStars: item.addedStars,
         language: repo.language,
         ownerAvatar: repo.owner.avatar_url,
         ownerLogin: repo.owner.login,
         description: repo.description,
         createdAt: repo.created_at,
         topics: repo.topics,
-      } as IRankItemWithRepoInfo
+      }
     })
 
     const batchRepoInfoList = (await Promise.all(promiseList)).filter(
       (item) => {
         return item !== null
       },
-    )
-    // @ts-ignore already filter null
+    ) as IRankItemWithRepoInfo[]
+
+    await sleep(100)
     repoInfoList.push(...batchRepoInfoList)
   }
 
   return repoInfoList
+}
+
+function sleep(delay: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('')
+    }, delay)
+  })
 }

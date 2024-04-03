@@ -3,6 +3,9 @@ name: Deploy Next.js site to Pages
 on:
   workflow_dispatch:
 
+  schedule:
+    - cron: '0 16 * * *'
+
 permissions:
   contents: read
   pages: write

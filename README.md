@@ -65,6 +65,11 @@ Deploy result
 
 
 ### roadmap
+
+- v1.1
+  - refactor UI 🚧
+  - improve  performance 🚧
+
 - **v1.0**
   - move to SSG, use next static export and github actions build for every day 🚀✅
   - add build your own guide ✅

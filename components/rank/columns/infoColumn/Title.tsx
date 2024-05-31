@@ -1,6 +1,4 @@
-import _ from 'lodash'
 import { clsx } from 'clsx'
-import { GithubIcon } from 'lucide-react'
 import Link from 'next/link'
 interface Props {
   name: string

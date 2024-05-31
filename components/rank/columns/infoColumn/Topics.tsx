@@ -1,5 +1,3 @@
-import _ from 'lodash'
-import { clsx } from 'clsx'
 import { Badge } from '@/components/ui/badge'
 interface Props {
   topics: string[]

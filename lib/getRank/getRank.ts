@@ -14,8 +14,11 @@ export type IRankItemWithRepoInfo = IRankItem & {
 
 export default async function getRank() {
   const db = await getDB()
-  if (db.data.repoInfoList.length > 0) {
-    return db.data.repoInfoList
+  const WITH_LOCAL_DATA = process.env.WITH_LOCAL_DATA
+  if (WITH_LOCAL_DATA === 'true') {
+    if (db.data.repoInfoList.length > 0) {
+      return db.data.repoInfoList
+    }
   }
 
   const { start, end } = getDate()
@@ -56,8 +59,10 @@ export default async function getRank() {
     repoInfoList.push(...batchRepoInfoList)
   }
 
-  db.data.repoInfoList = repoInfoList
-  await db.write()
+  if (WITH_LOCAL_DATA === 'true') {
+    db.data.repoInfoList = repoInfoList
+    await db.write()
+  }
 
   return repoInfoList
 }

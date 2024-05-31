@@ -1,6 +1,6 @@
 import { ofetch } from 'ofetch'
 
-const globalOfetch = ofetch.create({
+export const globalOfetch = ofetch.create({
   baseURL: 'https://api.github.com/',
   method: 'GET',
   onRequest: ({ options }) => {
@@ -12,5 +12,3 @@ const globalOfetch = ofetch.create({
     }
   },
 })
-
-export { globalOfetch }

@@ -6,3 +6,10 @@ export function getDate() {
     end: dayjs().format('YYYY-MM-DD'),
   }
 }
+export function sleep(delay: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('')
+    }, delay)
+  })
+}

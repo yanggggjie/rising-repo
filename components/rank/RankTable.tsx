@@ -1,6 +1,5 @@
 'use client'
 import { clsx } from 'clsx'
-import dayjs from 'dayjs'
 import {
   ColumnFiltersState,
   flexRender,

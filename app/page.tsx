@@ -24,7 +24,7 @@ export default async function Page({}: Props) {
         </Link>
       </div>
       <div className={clsx('overflow-auto border-2')}>
-        <RankTable data={rank}></RankTable>{' '}
+        <RankTable data={rank}></RankTable>
       </div>
     </div>
   )

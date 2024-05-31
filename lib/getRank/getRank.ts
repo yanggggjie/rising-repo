@@ -1,6 +1,7 @@
-import { getDate } from '@/lib/util'
+import { getDate, sleep } from '@/lib/util'
 import getRankList, { IRankItem } from '@/lib/getRank/getRankList'
 import getARepo from '@/lib/getRank/getARepo'
+import { getDB } from '@/lib/lowdb'
 
 export type IRankItemWithRepoInfo = IRankItem & {
   language: string
@@ -12,6 +13,11 @@ export type IRankItemWithRepoInfo = IRankItem & {
 }
 
 export default async function getRank() {
+  const db = await getDB()
+  if (db.data.repoInfoList.length > 0) {
+    return db.data.repoInfoList
+  }
+
   const { start, end } = getDate()
 
   const rankList = await getRankList({
@@ -50,13 +56,8 @@ export default async function getRank() {
     repoInfoList.push(...batchRepoInfoList)
   }
 
-  return repoInfoList
-}
+  db.data.repoInfoList = repoInfoList
+  await db.write()
 
-function sleep(delay: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('')
-    }, delay)
-  })
+  return repoInfoList
 }

@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
+import { useDeferredValue, useEffect, useState } from 'react'
 
 export const languageColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'language',
@@ -36,13 +37,27 @@ export const languageColumn: ColumnDef<IRankItemWithRepoInfo> = {
       1,
     ).reverse()
 
+    // State to hold the immediate value
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [immediateValue, setImmediateValue] = useState<string>('language')
+    // Use deferred value to delay the filter update
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const deferredValue = useDeferredValue(immediateValue)
+
+    // Sync the deferred value with the column filter
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      column.setFilterValue(deferredValue)
+    }, [deferredValue, column])
+
     return (
       <div className={clsx('w-[9.25rem]')}>
         <Select
-          value={column.getFilterValue() as string}
+          value={immediateValue}
           defaultValue={'language'}
           onValueChange={(value) => {
-            column.setFilterValue(value)
+            setImmediateValue(value)
           }}
         >
           <SelectTrigger className="border-0">

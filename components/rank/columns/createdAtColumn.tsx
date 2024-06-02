@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
+import { useDeferredValue, useEffect, useState } from 'react'
 
 export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'createdAt',
@@ -33,13 +34,27 @@ export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
   },
   header: (props) => {
     const { column } = props
+
+    // State to hold the immediate value
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [immediateValue, setImmediateValue] = useState<string>('Age')
+    // Use deferred value to delay the filter update
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const deferredValue = useDeferredValue(immediateValue)
+
+    // Sync the deferred value with the column filter
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      column.setFilterValue(deferredValue)
+    }, [deferredValue, column])
+
     return (
       <div className={clsx('w-[20.5]')}>
         <Select
-          value={column.getFilterValue() as string}
+          value={immediateValue}
           defaultValue={'Age'}
           onValueChange={(value) => {
-            column.setFilterValue(value)
+            setImmediateValue(value)
           }}
         >
           <SelectTrigger className="border-0">
@@ -60,6 +75,7 @@ export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
     return <div className={'pl-3'}>{genCreatedAtDOM(createdAt)}</div>
   },
 }
+
 function genCreatedAtDOM(createdDate: string) {
   const createdDay = dayjs(createdDate)
   const today = dayjs()
@@ -67,12 +83,12 @@ function genCreatedAtDOM(createdDate: string) {
   const monthsDifference = today.diff(createdDay, 'month')
   const daysDifference = today.diff(createdDay, 'day')
   if (yearsDifference > 0) {
-    return <span className={clsx('text-red-700')}>{yearsDifference}Year</span>
+    return <span className={clsx('text-red-700')}>{yearsDifference} Year</span>
   }
   if (monthsDifference > 0) {
     return (
-      <span className={clsx('text-blue-700')}>{monthsDifference}Month</span>
+      <span className={clsx('text-blue-700')}>{monthsDifference} Month</span>
     )
   }
-  return <span className={clsx('text-green-700')}>{daysDifference}Day</span>
+  return <span className={clsx('text-green-700')}>{daysDifference} Day</span>
 }

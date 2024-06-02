@@ -37,7 +37,7 @@ jobs:
         run: pnpm install
 
       - name: Build the project with pnpm
-        run: pnpm run build
+        run: pnpm run build-with-fresh-data
         env:
           MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}

@@ -12,7 +12,13 @@ export default async function Page({}: Props) {
   const updateTime = dayjs().format('YYYY-MM-DD')
 
   return (
-    <div className={clsx('h-screen', 'flex flex-col gap-1', 'p-4')}>
+    <div
+      className={clsx(
+        'h-screen mx-auto max-w-[1306px]',
+        'flex flex-col gap-1',
+        'p-4',
+      )}
+    >
       <div className={clsx('flex flex-row items-center')}>
         <UpdateTime updateTime={updateTime}></UpdateTime>
         <div className={clsx('grow')}></div>

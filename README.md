@@ -3,72 +3,12 @@
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
 
-### build your own local
-Add a local .env file
-
-for GOOGLE_SERVICE_KEY
-steps:
-- goto google cloud
-- add a new project
-- in the project
-  - goto **IAM Admin**
-  - create a new **service account** (make sure it is **owner**, in the second step)
-  - at the service account line, click **action** goto **manage keys**
-    - add new key
-    - download the json file
-    - copy all of the json content and encode to base64
-    - copy all of the base64 content to env file
-    - GOOGLE_SERVICE_KEY="the base64 content"
-
-
-1. need a secret key file of Google Cloud's service account
-
-2. the service account is the owner of the project
-
-3. convert the file to base64 and copy to GOOGLE_SERVICE_KEY="the base64 content"
-
-
-
-for MY_GITHUB_TOKEN
-
-goto https://github.com/settings/tokens -> classic -> Generate new token
-
-the .env file
-
-![image](https://github.com/yanggggjie/rising-repo/blob/main/example/env-setting.png)
-
-pnpm install
-
-pnpm run dev
-
-http://localhost:3000/rising-repo
-
-### deploy your own
-
-Enable GitHub Pages
-
-![image](https://github.com/yanggggjie/rising-repo/blob/main/example/pages-setting.png)
-
-
-Add Secret
-
-![image](https://github.com/yanggggjie/rising-repo/blob/main/example/secret-setting.png)
-
-To deploy
-
-![image](https://github.com/yanggggjie/rising-repo/blob/main/example/to-deploy.png)
-
-Deploy result
-
-![image](https://github.com/yanggggjie/rising-repo/blob/main/example/deploy-result.png)
-
-
-
 ### roadmap
 
 - v1.1
-  - refactor UI 🚧
-  - improve  performance 🚧🚧
+  - refactor UI  ✅
+  - improve  performance 🚧
+  - improve data source stability 🚧🚧
 
 - **v1.0**
   - move to SSG, use next static export and github actions build for every day 🚀✅
@@ -141,3 +81,63 @@ Deploy result
   - Shorten the time of switching date button and add loader
     - add loader ✅
   - vercel Real Experience Score increased from 53 to 79 🚀
+
+
+### build your own local
+Add a local .env file
+
+for GOOGLE_SERVICE_KEY
+steps:
+- goto google cloud
+- add a new project
+- in the project
+  - goto **IAM Admin**
+  - create a new **service account** (make sure it is **owner**, in the second step)
+  - at the service account line, click **action** goto **manage keys**
+    - add new key
+    - download the json file
+    - copy all of the json content and encode to base64
+    - copy all of the base64 content to env file
+    - GOOGLE_SERVICE_KEY="the base64 content"
+
+
+1. need a secret key file of Google Cloud's service account
+
+2. the service account is the owner of the project
+
+3. convert the file to base64 and copy to GOOGLE_SERVICE_KEY="the base64 content"
+
+
+
+for MY_GITHUB_TOKEN
+
+goto https://github.com/settings/tokens -> classic -> Generate new token
+
+the .env file
+
+![image](https://github.com/yanggggjie/rising-repo/blob/main/example/env-setting.png)
+
+pnpm install
+
+pnpm run dev
+
+http://localhost:3000/rising-repo
+
+### deploy your own
+
+Enable GitHub Pages
+
+![image](https://github.com/yanggggjie/rising-repo/blob/main/example/pages-setting.png)
+
+
+Add Secret
+
+![image](https://github.com/yanggggjie/rising-repo/blob/main/example/secret-setting.png)
+
+To deploy
+
+![image](https://github.com/yanggggjie/rising-repo/blob/main/example/to-deploy.png)
+
+Deploy result
+
+![image](https://github.com/yanggggjie/rising-repo/blob/main/example/deploy-result.png)

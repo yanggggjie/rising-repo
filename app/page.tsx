@@ -14,7 +14,7 @@ export default async function Page({}: Props) {
   return (
     <div
       className={clsx(
-        'h-screen mx-auto max-w-[1306px]',
+        'h-screen mx-auto max-w-[1306px] min-w-[1306px]',
         'flex flex-col gap-1',
         'p-4',
       )}

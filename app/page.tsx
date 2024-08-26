@@ -5,6 +5,7 @@ import UpdateTime from '@/components/UpdateTime'
 import dayjs from 'dayjs'
 import RankTable from '@/components/rank/RankTable'
 import getRank from '@/lib/getRank/getRank'
+import Summary from '@/components/Summary'
 interface Props {}
 
 export default async function Page({}: Props) {
@@ -14,6 +15,7 @@ export default async function Page({}: Props) {
   return (
     <div
       className={clsx(
+        'h-screen w-screen',
         'h-screen mx-auto max-w-[1306px] min-w-[1306px]',
         'flex flex-col gap-1',
         'p-4',
@@ -21,7 +23,9 @@ export default async function Page({}: Props) {
     >
       <div className={clsx('flex flex-row items-center')}>
         <UpdateTime updateTime={updateTime}></UpdateTime>
-        <div className={clsx('grow')}></div>
+        <div className={clsx('grow')}>
+          <Summary rank={rank}></Summary>
+        </div>
         <Link
           target={'_blank'}
           href={'https://github.com/yanggggjie/rising-repo'}

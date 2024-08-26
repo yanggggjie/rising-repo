@@ -5,7 +5,7 @@
 ### roadmap
 
 - **v2.0**
-  - From SPA to page: More intuitive and stable. 🚀
+  - add daily summary by chatgpt 
 
 - v1.1
   - refactor UI  ✅

@@ -2,8 +2,10 @@
 
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
-
 ### roadmap
+
+- **v2.0**
+  - From SPA to page: More intuitive and stable. 🚀
 
 - v1.1
   - refactor UI  ✅

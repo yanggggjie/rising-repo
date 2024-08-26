@@ -8,7 +8,7 @@ export async function fetchChatCompletion(inContent: string) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.My_CHATGPT_TOKEN}`,
+          Authorization: `Bearer ${process.env.MY_OPENAI_TOKEN}`,
         },
         body: JSON.stringify({
           model: 'gpt-3.5-turbo',

@@ -39,6 +39,7 @@ jobs:
       - name: Build the project with pnpm
         run: pnpm run build-with-fresh-data
         env:
+          MY_CHATGPT_TOKEN: ${{ secrets.MY_CHATGPT_TOKEN }}
           MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
           GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
 

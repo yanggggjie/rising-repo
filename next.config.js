@@ -13,10 +13,5 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    reactCompiler: {
-      compilationMode: 'annotation',
-    },
-  },
 }
 module.exports = nextConfig

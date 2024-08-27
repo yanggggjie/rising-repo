@@ -60,7 +60,7 @@ export const languageColumn: ColumnDef<IRankItemWithRepoInfo> = {
             setImmediateValue(value)
           }}
         >
-          <SelectTrigger className="border-0">
+          <SelectTrigger className="border-0 bg-white">
             <SelectValue placeholder="Language" />
           </SelectTrigger>
           <SelectContent>

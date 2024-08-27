@@ -57,7 +57,7 @@ export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
             setImmediateValue(value)
           }}
         >
-          <SelectTrigger className="border-0">
+          <SelectTrigger className="border-0 bg-white">
             <SelectValue placeholder="Age" />
           </SelectTrigger>
           <SelectContent>

@@ -13,3 +13,8 @@ export function sleep(delay: number) {
     }, delay)
   })
 }
+
+export function isWithLocalData() {
+  const WITH_LOCAL_DATA = process.env.WITH_LOCAL_DATA
+  return WITH_LOCAL_DATA === 'true'
+}

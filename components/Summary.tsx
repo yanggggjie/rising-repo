@@ -12,19 +12,19 @@ interface Props {
 export interface ISummaryRank {
   repoName: string
   addedStars: number
-  language: string
+  description: string
 }
 
 export default async function Summary({ rank }: Props) {
   const summaryRankList: ISummaryRank[] = rank
-    .map(({ repoName, addedStars, language }) => {
+    .map((item) => {
       return {
-        repoName,
-        addedStars,
-        language,
+        repoName: item.repoName.split('/')[1],
+        addedStars: item.addedStars,
+        description: item.description,
       }
     })
-    .slice(0, 100)
+    .slice(0, 30)
 
   const summary = await getSummary(summaryRankList)
 
@@ -37,7 +37,9 @@ export default async function Summary({ rank }: Props) {
           <ChatgptIcon></ChatgptIcon>
         </div>
       </HoverCardTrigger>
-      <HoverCardContent className={'w-[400px]'}>{summary}</HoverCardContent>
+      <HoverCardContent className={'w-[400px]'}>
+        <p className="leading-7 text-justify mt-6 first:mt-0">{summary}</p>
+      </HoverCardContent>
     </HoverCard>
   )
 }

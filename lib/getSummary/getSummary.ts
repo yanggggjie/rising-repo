@@ -1,14 +1,14 @@
 import { ISummaryRank } from '@/components/Summary'
 import { fetchChatCompletion } from '@/lib/getSummary/fetchChatCompletion'
+import { isWithLocalData } from '@/lib/util'
 
 export async function getSummary(summaryRankList: ISummaryRank[]) {
   const prompt = `${JSON.stringify(summaryRankList)}
 
   以上是昨日的github仓库新增star数据，根据以上数据，输出200字的中文总结
   `
-  const WITH_LOCAL_DATA = process.env.WITH_LOCAL_DATA
-  if (WITH_LOCAL_DATA === 'true') {
-    return `昨日的GitHub仓库新增star数据显示，Python和TypeScript是最受欢迎的编程语言，其中ChatTTS和yolov10是新增stars最多的仓库。除了编程语言之外，还有一些仓库的语言未知。值得注意的是，一些自动点击器和机器学习项目也受到了相当大的关注。此外，一些破解软件和自动化工具的仓库也受到了一定程度的关注。总体而言，昨日的GitHub活动涵盖了多个领域，展示了开发者们对技术和创新的持续热情。`
+  if (isWithLocalData()) {
+    return `昨日 GitHub 上新增 star 数量较多的仓库主要集中在人工智能和机器学习领域。例如，ChatTTS 是一个用于日常对话的生成语音模型，获得了 3600 个新增 star，遥遥领先于其他项目。YOLOv10 是一个实时端到端目标检测系统，新增 star 数量为 681。llama-fs 是一个自组织文件系统，新增 star 为 654。其他受欢迎的项目还包括 fabric，一个用于增强人类能力的开源框架，新增 star 为 647。总的来看，AI 相关的项目依然是 GitHub 上的热点，其他如金融机器学习、图像处理和文件系统等领域的项目也受到了关注。此外，一些工具类和框架类的项目，如提供 GitHub 仪表盘的 gh-dash 和 Go 语言框架 goravel 也获得了不少的 star。`
   }
   return fetchChatCompletion(prompt)
 }

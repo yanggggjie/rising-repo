@@ -1,4 +1,4 @@
-import { getDate, sleep } from '@/lib/util'
+import { getDate, isWithLocalData, sleep } from '@/lib/util'
 import getRankList, { IRankItem } from '@/lib/getRank/getRankList'
 import getARepo from '@/lib/getRank/getARepo'
 import { getDB } from '@/lib/lowdb'
@@ -14,11 +14,8 @@ export type IRankItemWithRepoInfo = IRankItem & {
 
 export default async function getRank() {
   const db = await getDB()
-  const WITH_LOCAL_DATA = process.env.WITH_LOCAL_DATA
-  if (WITH_LOCAL_DATA === 'true') {
-    if (db.data.repoInfoList.length > 0) {
-      return db.data.repoInfoList
-    }
+  if (isWithLocalData() && db.data.repoInfoList.length) {
+    return db.data.repoInfoList
   }
 
   const { start, end } = getDate()
@@ -59,7 +56,7 @@ export default async function getRank() {
     repoInfoList.push(...batchRepoInfoList)
   }
 
-  if (WITH_LOCAL_DATA === 'true') {
+  if (isWithLocalData()) {
     db.data.repoInfoList = repoInfoList
     await db.write()
   }

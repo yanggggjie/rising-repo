@@ -2,7 +2,6 @@ import { ColumnDef } from '@tanstack/react-table'
 import { clsx } from 'clsx'
 import * as React from 'react'
 import _ from 'lodash'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import TopicFilter from '@/components/rank/columns/infoColumn/TopicFilter/TopicFilter'
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
 import { Badge } from '@/components/ui/badge'
@@ -70,10 +69,12 @@ export const infoColumn: ColumnDef<IRankItemWithRepoInfo> = {
           'flex flex-row items-center justify-start gap-3',
         )}
       >
-        <Avatar className={'w-16 h-16'}>
-          <AvatarImage src={ownerAvatar}></AvatarImage>
-          <AvatarFallback>{ownerLogin}</AvatarFallback>
-        </Avatar>
+        <img
+          className={'w-16 h-16 rounded-full'}
+          src={ownerAvatar}
+          alt={ownerLogin + 'avatar'}
+          loading={'lazy'}
+        />
         <div
           className={clsx(
             'flex-1 overflow-hidden flex flex-col items-start justify-center gap-2',

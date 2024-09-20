@@ -4,9 +4,10 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  Table,
   useReactTable,
 } from '@tanstack/react-table'
-import { useRef, useState } from 'react'
+import { memo, useDeferredValue, useEffect, useRef, useState } from 'react'
 import { columns } from '@/components/rank/columns/columns'
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
 import { twMerge } from 'tailwind-merge'
@@ -18,25 +19,28 @@ interface Props {
 
 export default function RankTable({ data }: Props) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const tableRef = useRef(null)
+  const deferredColumnFilters = useDeferredValue(columnFilters)
+  const tableRef = useRef<HTMLTableSectionElement | null>(null)
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state: {
-      columnFilters,
+      columnFilters: deferredColumnFilters,
     },
     onColumnFiltersChange: (updaterOrValue) => {
       setColumnFilters(updaterOrValue)
-      if (tableRef.current) {
-        // @ts-ignore
-        tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
     },
   })
 
   const columnWidth = ['w-[62.5%]', 'w-[12.5%]', 'w-[12.5%]', 'w-[12.5%]']
+
+  useEffect(() => {
+    if (tableRef.current && Object.is(columnFilters, deferredColumnFilters)) {
+      tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [columnFilters, deferredColumnFilters])
 
   return (
     <table className={'w-full table-fixed'}>
@@ -66,26 +70,45 @@ export default function RankTable({ data }: Props) {
         style={{
           scrollMarginTop: '100px',
         }}
+        className={twMerge(
+          !Object.is(columnFilters, deferredColumnFilters) && 'opacity-30',
+        )}
       >
-        {table.getRowModel().rows.map((row) => {
-          return (
-            <TableRow key={row.id} className={'hover:bg-muted'}>
-              {row.getVisibleCells().map((cell, index) => {
-                return (
-                  <TableCell
-                    key={cell.id}
-                    className={twMerge(
-                      index === 0 && 'overflow-hidden pr-[20px]',
-                    )}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          )
-        })}
+        <TableBody
+          table={table}
+          deferredColumnFilters={deferredColumnFilters}
+        ></TableBody>
       </tbody>
     </table>
   )
 }
+const TableBody = memo(function TableBody({
+  table,
+  deferredColumnFilters,
+}: {
+  table: Table<IRankItemWithRepoInfo>
+  deferredColumnFilters: ColumnFiltersState
+}) {
+  return (
+    <>
+      {table.getRowModel().rows.map((row) => {
+        return (
+          <TableRow key={row.id} className={'hover:bg-muted'}>
+            {row.getVisibleCells().map((cell, index) => {
+              return (
+                <TableCell
+                  key={cell.id}
+                  className={twMerge(
+                    index === 0 && 'overflow-hidden pr-[20px]',
+                  )}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              )
+            })}
+          </TableRow>
+        )
+      })}
+    </>
+  )
+})

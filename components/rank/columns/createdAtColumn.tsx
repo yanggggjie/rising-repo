@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/select'
 import { SelectValue } from '@radix-ui/react-select'
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
-import { useDeferredValue, useEffect, useState } from 'react'
 
 export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
   id: 'createdAt',
@@ -35,26 +34,13 @@ export const createdAtColumn: ColumnDef<IRankItemWithRepoInfo> = {
   header: (props) => {
     const { column } = props
 
-    // State to hold the immediate value
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [immediateValue, setImmediateValue] = useState<string>('Age')
-    // Use deferred value to delay the filter update
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const deferredValue = useDeferredValue(immediateValue)
-
-    // Sync the deferred value with the column filter
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      column.setFilterValue(deferredValue)
-    }, [deferredValue, column])
-
     return (
       <div className={clsx('w-[20.5]')}>
         <Select
-          value={immediateValue}
+          value={column.getFilterValue() as string}
           defaultValue={'Age'}
           onValueChange={(value) => {
-            setImmediateValue(value)
+            column.setFilterValue(value)
           }}
         >
           <SelectTrigger className="border-0 bg-white">

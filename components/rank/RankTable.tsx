@@ -38,7 +38,7 @@ export default function RankTable({ data }: Props) {
 
   useEffect(() => {
     if (tableRef.current && Object.is(columnFilters, deferredColumnFilters)) {
-      tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      tableRef.current.scrollIntoView(true)
     }
   }, [columnFilters, deferredColumnFilters])
 
@@ -71,7 +71,8 @@ export default function RankTable({ data }: Props) {
           scrollMarginTop: '100px',
         }}
         className={twMerge(
-          !Object.is(columnFilters, deferredColumnFilters) && 'opacity-30',
+          !Object.is(columnFilters, deferredColumnFilters) &&
+            'opacity-30 bg-[#a8bff7]/30 transition-colors',
         )}
       >
         <TableBody

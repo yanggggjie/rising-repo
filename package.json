@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "WITH_LOCAL_DATA=true next dev",
     "build-with-local-data": "WITH_LOCAL_DATA=true next build",
+    "preview-local":"ln -snf \"`pwd`/out\" out/rising-repo && npx serve@latest out",
     "build-with-fresh-data": "next build",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "lint": "next lint"

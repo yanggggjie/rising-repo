@@ -4,11 +4,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ChevronDownIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
+import { twMerge } from 'tailwind-merge'
 
 interface Props {
   sortedTopicList: Array<[string, number]>
@@ -32,12 +32,18 @@ export default function TopicFilter({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger>
-        <Button variant="outline" asChild={true} onClick={() => {}}>
-          <div>
-            {selectedTopic}
-            <ChevronDownIcon className={'w-5 h-5'} />
-          </div>
-        </Button>
+        <div
+          onClick={() => {}}
+          className={twMerge(
+            'flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+            'focus:ring-0',
+            'bg-white hover:ring-2 transition-shadow',
+            'flex flex-row gap-1 items-center justify-center',
+          )}
+        >
+          {selectedTopic}
+          <ChevronDownIcon className={'w-4 h-4'} />
+        </div>
       </PopoverTrigger>
       <PopoverContent className={'ml-10 w-[30rem] space-y-2'}>
         <Input
@@ -46,13 +52,14 @@ export default function TopicFilter({
             setSearchText(e.target.value)
           }}
           placeholder={'type to filter topic'}
+          className={'focus:outline-0 focus:ring-2'}
         ></Input>
         <div
           className={clsx('w-full px-0.5 h-[30rem] overflow-auto space-y-2')}
         >
           <Badge
             variant="secondary"
-            className={'space-x-1 mr-2 hover:outline'}
+            className={'space-x-1 mr-2 hover:ring-2'}
             onClick={() => {
               onTopicClick('all')
               setIsOpen(false)
@@ -65,7 +72,7 @@ export default function TopicFilter({
               <Badge
                 key={name}
                 variant="secondary"
-                className={'space-x-1 hover:outline mr-2'}
+                className={'space-x-1 hover:ring-2 mr-2'}
                 onClick={() => {
                   onTopicClick(name)
                   setIsOpen(false)

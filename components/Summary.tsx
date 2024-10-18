@@ -6,6 +6,8 @@ import {
 } from '@/components/ui/hover-card'
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
 import { getSummary } from '@/lib/getSummary/getSummary'
+import { twMerge } from 'tailwind-merge'
+import SummaryDialog from '@/components/SummaryDialog'
 interface Props {
   rank: IRankItemWithRepoInfo[]
 }
@@ -25,16 +27,28 @@ export default async function Summary({ rank }: Props) {
       }
     })
     .slice(0, 30)
-
   const summary = await getSummary(summaryRankList)
 
   return (
+    <div className={'fixed bottom-10 right-10'}>
+      <SummaryDialog content={summary}></SummaryDialog>
+    </div>
+  )
+
+  return (
     <HoverCard openDelay={100}>
-      <HoverCardTrigger>
-        <div className={'flex flex-row items-center justify-center underline'}>
-          <div>Summarized by</div>
-          <div className={'w-[3px]'}></div>
+      <HoverCardTrigger
+        className={twMerge('', 'fixed bottom-10 right-10 z-[100]')}
+      >
+        <div
+          className={twMerge(
+            'py-2 px-4 rounded-full bg-[#18181b] text-white',
+            ' flex flex-row items-center justify-center underline',
+          )}
+        >
           <ChatgptIcon></ChatgptIcon>
+          <div className={'w-[6px]'}></div>
+          <div>Summary</div>
         </div>
       </HoverCardTrigger>
       <HoverCardContent className={'w-[400px]'}>
@@ -44,7 +58,7 @@ export default async function Summary({ rank }: Props) {
   )
 }
 
-function ChatgptIcon() {
+export function ChatgptIcon() {
   return (
     <svg
       className="w-[20px]"

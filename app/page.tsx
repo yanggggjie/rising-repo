@@ -23,9 +23,7 @@ export default async function Page({}: Props) {
     >
       <div className={clsx('flex flex-row items-center')}>
         <UpdateTime updateTime={updateTime}></UpdateTime>
-        <div className={clsx('grow')}>
-          <Summary rank={rank}></Summary>
-        </div>
+        <div className={clsx('grow')}></div>
         <Link
           target={'_blank'}
           href={'https://github.com/yanggggjie/rising-repo'}
@@ -36,6 +34,7 @@ export default async function Page({}: Props) {
       <div className={clsx('overflow-auto border-2')}>
         <RankTable data={rank}></RankTable>
       </div>
+      <Summary rank={rank}></Summary>
     </div>
   )
 }

@@ -6,3 +6,4 @@
 .env.development.local
 .vercel
 /temp
+/out

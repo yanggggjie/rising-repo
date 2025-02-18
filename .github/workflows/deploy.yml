@@ -25,19 +25,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Install yarn
+        run: npm install --global yarn
 
-      - name: Prepare pnpm
-        run: corepack prepare pnpm@latest --activate
+      - name: Install dependencies with yarn
+        run: yarn install
 
-      - name: Install dependencies with pnpm
-        run: pnpm install
-
-      - name: Build the project with pnpm
-        run: pnpm run build-with-fresh-data
+      - name: Build the project with yarn
+        run: yarn run build-with-fresh-data
         env:
           MY_OPENAI_TOKEN: ${{ secrets.MY_OPENAI_TOKEN }}
           MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}

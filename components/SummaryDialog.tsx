@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function SummaryDialog({ content }: Props) {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
 
   return (
     <div>

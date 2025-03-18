@@ -39,9 +39,11 @@ export default function TopicFilter({
             'focus:ring-0',
             'bg-white hover:ring-2 transition-shadow',
             'flex flex-row gap-1 items-center justify-center',
+            'w-36',
           )}
         >
           {selectedTopic}
+          <div className={'flex-1'}></div>
           <ChevronDownIcon className={'w-4 h-4'} />
         </div>
       </PopoverTrigger>
@@ -55,7 +57,9 @@ export default function TopicFilter({
           className={'focus:outline-0 focus:ring-2'}
         ></Input>
         <div
-          className={clsx('w-full px-0.5 h-[30rem] overflow-auto space-y-2')}
+          className={clsx(
+            'w-full px-0.5 h-[30rem] overflow-y-scroll scrollbar-thin space-y-2',
+          )}
         >
           <Badge
             variant="secondary"

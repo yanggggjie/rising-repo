@@ -31,7 +31,11 @@ export default async function Page({}: Props) {
           <GithubIcon></GithubIcon>
         </Link>
       </div>
-      <div className={clsx('overflow-auto border-2')}>
+      <div
+        className={clsx(
+          'overflow-x-auto overflow-y-scroll scrollbar-thin border-2 ',
+        )}
+      >
         <RankTable data={rank}></RankTable>
       </div>
       <Summary rank={rank}></Summary>

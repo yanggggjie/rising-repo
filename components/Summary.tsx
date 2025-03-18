@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card'
+
 import { IRankItemWithRepoInfo } from '@/lib/getRank/getRank'
 import { getSummary } from '@/lib/getSummary/getSummary'
-import { twMerge } from 'tailwind-merge'
 import SummaryDialog from '@/components/SummaryDialog'
 interface Props {
   rank: IRankItemWithRepoInfo[]
@@ -33,28 +28,6 @@ export default async function Summary({ rank }: Props) {
     <div className={'fixed bottom-10 right-10'}>
       <SummaryDialog content={summary}></SummaryDialog>
     </div>
-  )
-
-  return (
-    <HoverCard openDelay={100}>
-      <HoverCardTrigger
-        className={twMerge('', 'fixed bottom-10 right-10 z-[100]')}
-      >
-        <div
-          className={twMerge(
-            'py-2 px-4 rounded-full bg-[#18181b] text-white',
-            ' flex flex-row items-center justify-center underline',
-          )}
-        >
-          <ChatgptIcon></ChatgptIcon>
-          <div className={'w-[6px]'}></div>
-          <div>Summary</div>
-        </div>
-      </HoverCardTrigger>
-      <HoverCardContent className={'w-[400px]'}>
-        <p className="leading-7 text-justify mt-6 first:mt-0">{summary}</p>
-      </HoverCardContent>
-    </HoverCard>
   )
 }
 

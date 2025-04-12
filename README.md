@@ -1,11 +1,11 @@
-### a table to display recently popular repos
+### [A table to display recently popular repos](https://yanggggjie.github.io/rising-repo/)
 
 ![image](https://github.com/yanggggjie/rising-repo/blob/main/example/example.png)
 
 ### roadmap
 
 - **v2.0**
-  - add daily summary by chatgpt 
+  - add daily summary by chatgpt
 
 - v1.1
   - refactor UI  ✅
